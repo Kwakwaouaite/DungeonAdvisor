@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Cell
 {
-    DA_Object m_Object;
+    public DA_Object m_Object;
 
     public virtual bool IsWalkable()
     {
@@ -30,6 +31,8 @@ public class DA_Grid : MonoBehaviour
 
     public Cell[,] m_Cells;
 
+    private List<Pathfinding.ObjectPathData> d_foundObjects;
+
     private void OnDrawGizmos()
     {
         Vector3 offset;
@@ -51,15 +54,31 @@ public class DA_Grid : MonoBehaviour
             return;
         }
 
-        offset = Vector3.right * 0.5f + Vector3.down * 0.5f;
+        offset = Vector3.right * 0.5f + Vector3.up * 0.5f + Vector3.forward;
 
         for (int i = 0; i < m_Cells.GetLength(0); i++)
         {
             for (int j = 0; j < m_Cells.GetLength(1); j++)
             {
-                Gizmos.color = m_Cells[i, j].IsWalkable() ? Color.green : Color.red;
+                Gizmos.color = m_Cells[i, j].IsWalkable() ? (m_Cells[i, j].HaveStuff() ? Color.yellow : Color.green) : Color.red;
 
-                Gizmos.DrawSphere(transform.position + offset + Vector3.right * i + Vector3.down * j, 0.5f);
+                Gizmos.DrawSphere(transform.position + offset + Vector3.right * i + Vector3.up * j, 0.5f);
+            }
+        }
+
+        if (d_foundObjects != null)
+        {
+            offset = transform.position + Vector3.right * 0.5f + Vector3.up * 0.5f;
+
+            foreach (Pathfinding.ObjectPathData objectPathData in d_foundObjects)
+            {
+                Gizmos.color = Color.red;
+
+                for (int i = 1; i < objectPathData.path.Count; i++)
+                {
+                    Gizmos.DrawLine(new Vector3(objectPathData.path[i - 1].x, objectPathData.path[i - 1].y) + offset
+                        , new Vector3(objectPathData.path[i].x, objectPathData.path[i].y) + offset);
+                }
             }
         }
     }
@@ -78,9 +97,14 @@ public class DA_Grid : MonoBehaviour
             for (int j = 0; j < m_Cells.GetLength(1); j++)
             {
                 float rand = Random.Range(0.0f, 1.0f);
-                if (rand < 0.8f)
+                if (rand < 0.95f)
                 {
                     m_Cells[i, j] = new Cell();
+                    float rand2 = Random.Range(0.0f, 1.0f);
+                    if(rand2 > 0.9f)
+                    {
+                        m_Cells[i, j].m_Object = new DA_Object();
+                    }
                 }
                 else
                 {
@@ -88,6 +112,9 @@ public class DA_Grid : MonoBehaviour
                 }
             }
         }
+
+        List<Pathfinding.ObjectPathData> found_Object = Pathfinding.FindAccessibleObjects(this, Vector2Int.zero);
+        d_foundObjects = found_Object;
     }
 
     // Start is called before the first frame update
