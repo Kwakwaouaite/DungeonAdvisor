@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Visual: {fileID: 3517655182279337765}
   m_VisualBroken: {fileID: 3517655182824646130}
   m_Broken: 0
+  m_Cost: 0
 --- !u!1 &3517655182279337765
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +120,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 6179f3f9b5ed14c95a5d18b2c3f5faeb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a63b099f19d74d7689e5adb5c014e3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

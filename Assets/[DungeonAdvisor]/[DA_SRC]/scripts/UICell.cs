@@ -70,6 +70,7 @@ public class UICell : MonoBehaviour
         {
             Debug.Log("Over " + name);
             m_Hover.gameObject.SetActive(true);
+            GameManager.SetActiveCell(this);
         }
     }
 
@@ -93,6 +94,8 @@ public class UICell : MonoBehaviour
     private void OnMouseExit()
     {
         m_Hover.gameObject.SetActive(false);
+        GameManager.ResetActiveCell(this);
+
     }
 
     int getDamage() { return m_Damage; }
