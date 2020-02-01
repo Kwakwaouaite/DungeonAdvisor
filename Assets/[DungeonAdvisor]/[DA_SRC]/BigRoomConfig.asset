@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Row: 8
   m_CellW: 100
   m_CellH: 108
-  m_Background: {fileID: 21300000, guid: 48a12458b83df4b749dab1cf3a688083, type: 3}
+  m_Background: {fileID: 21300000, guid: e21db2e351c6c44229340d37794d184b, type: 3}
   m_BrokenSet:
   - {fileID: 21300000, guid: 42b21161a412b4c9aaf16b18a9089d46, type: 3}
   - {fileID: 21300000, guid: 9f185b7aba95e41e38bc1e53f4ecadf3, type: 3}
