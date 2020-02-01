@@ -4,10 +4,11 @@ using UnityEngine;
 public class Cell
 {
     public UIItem.eType m_Object;
+    public bool m_Walkable = true;
 
     public virtual bool IsWalkable()
     {
-        return true;
+        return m_Walkable;
     }
 
     public virtual bool HaveStuff()
@@ -16,7 +17,7 @@ public class Cell
     }
 }
 
-public class BrokenFloor : Cell
+public class Wall : Cell
 {
     public override bool IsWalkable()
     {
@@ -60,6 +61,11 @@ public class DA_Grid : MonoBehaviour
         {
             for (int j = 0; j < m_Cells.GetLength(1); j++)
             {
+                if (m_Cells[i, j] == null)
+                {
+                    continue;
+                }
+
                 Gizmos.color = m_Cells[i, j].IsWalkable() ? (m_Cells[i, j].HaveStuff() ? Color.yellow : Color.green) : Color.red;
 
                 Gizmos.DrawSphere(transform.position + offset + Vector3.right * i + Vector3.up * j, 0.5f);
@@ -108,7 +114,7 @@ public class DA_Grid : MonoBehaviour
                 }
                 else
                 {
-                    m_Cells[i, j] = new BrokenFloor();
+                    m_Cells[i, j] = new Wall();
                 }
             }
         }

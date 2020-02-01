@@ -90,10 +90,11 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
-    private static bool IsValidPosition(Vector2 position, DA_Grid grid)
+    private static bool IsValidPosition(Vector2Int position, DA_Grid grid)
     {
         if (0 <= position.x && position.x < grid.m_Width
-            && 0 <= position.y && position.y < grid.m_Height)
+            && 0 <= position.y && position.y < grid.m_Height
+            && grid.m_Cells[position.x, position.y] != null)
         {
             return true;
         }

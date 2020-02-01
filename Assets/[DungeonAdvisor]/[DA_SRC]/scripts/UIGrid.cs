@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class UIGrid : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class UIGrid : MonoBehaviour
     }
 
     public RoomConfig GetRoomConfig() {  return m_RoomConfig; }
-    UICell[] m_Cells;
+    List<UICell> m_Cells;
     int m_CellCount;
 
     private void Awake()
@@ -78,6 +79,9 @@ public class UIGrid : MonoBehaviour
         cell.name = "cell_" + x + "_" + y + ( type != UIItem.eType.None ? "_"+type.ToString() : "");
         cell.gameObject.SetActive(true);
         cell.SetCoord(x, y);
+
+        m_Cells.Add(cell);
+
         return cell;
     }
     void SetupRoom()
@@ -94,7 +98,7 @@ public class UIGrid : MonoBehaviour
             else
             {
                 Transform parent = m_CellBase.transform.parent;
-                m_Cells = new UICell[m_CellCount];
+                m_Cells = new List<UICell>();
               
 
                 for (int j=1;j<getRow()-1; j++)
@@ -109,6 +113,8 @@ public class UIGrid : MonoBehaviour
             m_CellBase.gameObject.SetActive(false);
 
             AddDoors();
+
+            GenerateLogicGrid();
         }
     }
 
@@ -139,6 +145,22 @@ public class UIGrid : MonoBehaviour
     void AddItems()
     {
 
+    }
+
+    private void GenerateLogicGrid()
+    {
+        Cell[,] newGrid = new Cell[getColumn(), getRow()];
+
+        foreach (UICell uiCell in m_Cells)
+        {
+            Cell newCell = new Cell();
+            newCell.m_Object = uiCell.GetEType();
+            newCell.m_Walkable = uiCell.GetWalkable();
+
+            newGrid[uiCell.m_X, uiCell.m_Y] = newCell;
+        }
+
+        m_IAGrid.SetCells(newGrid);
     }
 
     private void Update()
