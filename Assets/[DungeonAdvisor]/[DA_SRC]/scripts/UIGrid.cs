@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class UIGrid : MonoBehaviour
 {
     [SerializeField] RoomConfig m_RoomConfig;
+    [SerializeField] ItemConfig m_ItemConfig;
     [SerializeField] ScreenRefConfig m_ScreenRefConfig;
     [SerializeField] Transform m_Pivot;
     [SerializeField] SpriteRenderer m_Background;
@@ -59,6 +58,18 @@ public class UIGrid : MonoBehaviour
         SetupRoom();
     }
 
+    UICell InstantiateCell(int x, int y, UIItem.eType type)
+    {
+        Transform parent = m_CellBase.transform.parent;
+        Vector3 refPos = getRefGridPos();
+
+        UICell cell = Instantiate<UICell>(m_CellBase, parent);
+        cell.transform.localPosition = refPos + getPos(m_RoomConfig.getPos(x, y));
+        cell.name = "cell_" + x + "_" + y + ( type != UIItem.eType.None ? "_"+type.ToString() : "");
+        cell.gameObject.SetActive(true);
+        cell.SetCoord(x, y);
+        return cell;
+    }
     void SetupRoom()
     {
         m_Background.sprite = m_RoomConfig.m_Background;
@@ -74,22 +85,50 @@ public class UIGrid : MonoBehaviour
             {
                 Transform parent = m_CellBase.transform.parent;
                 m_Cells = new UICell[m_CellCount];
-                Vector3 refPos = getRefGridPos();
+              
 
                 for (int j=1;j<getRow()-1; j++)
                 {
                     for (int i = 1; i < getColumn() - 1; i++)
                     {
-                        UICell cell = Instantiate<UICell>(m_CellBase, parent);
-                        cell.transform.localPosition = refPos + getPos(m_RoomConfig.getPos(i, j));
-                        cell.name ="cell_"+i+"_"+j;
-                        cell.gameObject.SetActive(true);
+                        InstantiateCell(i, j, UIItem.eType.None);
                     }
                 }
 
             }
             m_CellBase.gameObject.SetActive(false);
+
+            AddDoors();
         }
+    }
+
+    void AddDoors()
+    {
+        // add up
+        UICell cellU = InstantiateCell(5, m_RoomConfig.GetUp(), UIItem.eType.Door);
+        UIItem doorU = Instantiate<UIItem>(m_RoomConfig.GetDoor(RoomConfig.eDir.UP),cellU.transform);
+        cellU.AddItem(doorU);
+
+        // add left
+        UICell cellL = InstantiateCell(m_RoomConfig.GetLeft(), 5, UIItem.eType.Door);
+        UIItem doorL = Instantiate<UIItem>(m_RoomConfig.GetDoor(RoomConfig.eDir.LEFT), cellL.transform);
+        cellL.AddItem(doorL);
+
+        // add bottom
+        UICell cellB = InstantiateCell(5, m_RoomConfig.GetDown(),UIItem.eType.Door);
+        UIItem doorB = Instantiate<UIItem>(m_RoomConfig.GetDoor(RoomConfig.eDir.DOWN), cellB.transform);
+        cellB.AddItem(doorB);
+
+        // add right
+        UICell cellR = InstantiateCell(m_RoomConfig.GetRight(), 5, UIItem.eType.Door);
+        UIItem doorR = Instantiate<UIItem>(m_RoomConfig.GetDoor(RoomConfig.eDir.RIGHT), cellR.transform);
+        cellR.AddItem(doorR);
+    }
+
+
+    void AddItems()
+    {
+
     }
 
     private void Update()

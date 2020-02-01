@@ -21,3 +21,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 42b21161a412b4c9aaf16b18a9089d46, type: 3}
   - {fileID: 21300000, guid: 9f185b7aba95e41e38bc1e53f4ecadf3, type: 3}
   - {fileID: 21300000, guid: 886d99c7e8dd241d0b3aaa27178f57c1, type: 3}
+  m_HoverColor:
+  - {r: 0.23532487, g: 1, b: 0.08018869, a: 1}
+  - {r: 0.9201927, g: 1, b: 0.042452812, a: 1}
+  - {r: 0.8867924, g: 0.6082686, b: 0.17986828, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  m_Doors:
+  - {fileID: 5836747622788356637, guid: f4b6cc104d6ea4c2e80dc69385637d27, type: 3}
+  - {fileID: 5042733750815996015, guid: 331ee30c8d5874eab91b9ab6485ab36f, type: 3}
+  - {fileID: 2499856312710019227, guid: 174189a993a204bff9f8e50db5696b7b, type: 3}
+  - {fileID: 617364099767588964, guid: 1def2327c00ba45bf9c021b94a72286e, type: 3}
