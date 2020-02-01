@@ -41,6 +41,11 @@ public class UICell : MonoBehaviour
         return m_Damage == GetMaxDamage();
     }
 
+    public bool isDamaged()
+    {
+        return m_Damage != 0;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

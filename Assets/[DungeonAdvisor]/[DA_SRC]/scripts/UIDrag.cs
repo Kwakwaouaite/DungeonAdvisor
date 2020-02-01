@@ -60,7 +60,7 @@ public class UIDrag : MonoBehaviour
         return (cell &&
             cell.canHover() &&
             cell.GetEType() == UIItem.eType.None &&
-            (!cell.isFullBroken())
+            (!cell.isDamaged())
             );
     }
     private void OnMouseDrag()
