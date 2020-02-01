@@ -7,14 +7,14 @@ public class Pathfinding : MonoBehaviour
     public class ObjectPathData
     {
         public DA_Object objectFound;
-        public Vector2[] path;
+        public List<Vector2Int> path;
     }
 
     public static readonly Vector2Int[] Directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
 
-    public ObjectPathData[] FindAccessibleObjects(DA_Grid grid, Vector2Int StartingPoint)
+    static public List<ObjectPathData> FindAccessibleObjects(DA_Grid grid, Vector2Int StartingPoint)
     {
-        ObjectPathData[] ObjectFound;
+        List<ObjectPathData> ObjectFound = new List<ObjectPathData>();
 
         Queue<Vector2Int> NextIteration = new Queue<Vector2Int>();
         Queue<Vector2Int> CurrentIteration = new Queue<Vector2Int>();
@@ -22,44 +22,79 @@ public class Pathfinding : MonoBehaviour
         ObjectPathData[,] fakeGrid = new ObjectPathData[grid.m_Width, grid.m_Height];
 
         NextIteration.Enqueue(StartingPoint);
+        fakeGrid[StartingPoint.x, StartingPoint.y] = new ObjectPathData();
+        fakeGrid[StartingPoint.x, StartingPoint.y].path = new List<Vector2Int>();
+        fakeGrid[StartingPoint.x, StartingPoint.y].path.Add(StartingPoint);
+
 
         while( NextIteration.Count > 0)
         {
             CurrentIteration = NextIteration;
             NextIteration = new Queue<Vector2Int>();
 
-            Vector2Int currentNode = CurrentIteration.Dequeue();
-
-            foreach (Vector2Int direction in Directions)
+            while (CurrentIteration. Count > 0)
             {
-                Vector2Int potentialNode = currentNode + direction;
+                Vector2Int currentNode = CurrentIteration.Dequeue();
 
-                if (IsValidPosition(potentialNode, grid))
+                List<Vector2Int> randomDirection = new List<Vector2Int>(Directions);
+
+                ShuffleDirection(randomDirection);
+
+                foreach (Vector2Int direction in randomDirection)
                 {
-                    if (fakeGrid[potentialNode.x, potentialNode.y] != null)
-                    {
-                        continue;
-                    }
+                    Vector2Int potentialNode = currentNode + direction;
 
-                    ObjectPathData newPathData = new ObjectPathData();
-                    Cell potentialCell = grid.m_Cells[potentialNode.x, potentialNode.y];
-
-                    if (potentialCell.IsWalkable())
+                    if (IsValidPosition(potentialNode, grid))
                     {
-                        //newPathData
+                        if (fakeGrid[potentialNode.x, potentialNode.y] != null)
+                        {
+                            continue;
+                        }
+
+                        ObjectPathData newPathData = new ObjectPathData();
+                        newPathData.path = new List<Vector2Int>();
+                        Cell potentialCell = grid.m_Cells[potentialNode.x, potentialNode.y];
+
+                        if (potentialCell.IsWalkable())
+                        {
+                            NextIteration.Enqueue(potentialNode);
+
+                            newPathData.path.AddRange(fakeGrid[currentNode.x, currentNode.y].path);
+                            newPathData.path.Add(potentialNode);
+
+                            newPathData.objectFound = potentialCell.m_Object;
+
+                            if (newPathData.objectFound != null)
+                            {
+                                ObjectFound.Add(newPathData);
+                            }
+                        }
+
+                        fakeGrid[potentialNode.x, potentialNode.y] = newPathData;
                     }
                 }
 
             }
         }
 
-        return null;
+        return ObjectFound;
     }
 
-    private bool IsValidPosition(Vector2 position, DA_Grid grid)
+    private static void ShuffleDirection (List<Vector2Int> list)
     {
-        if (0 < position.x && position.x < grid.m_Width
-            && 0 < position.y && position.y < grid.m_Height)
+        for (int i = 0; i < list.Count; i++)
+        {
+            int rand = Random.Range(0, list.Count);
+            Vector2Int temp = list[i];
+            list[i] = list[rand];
+            list[rand] = temp;
+        }
+    }
+
+    private static bool IsValidPosition(Vector2 position, DA_Grid grid)
+    {
+        if (0 <= position.x && position.x < grid.m_Width
+            && 0 <= position.y && position.y < grid.m_Height)
         {
             return true;
         }
