@@ -120,6 +120,7 @@ public class UIGrid : MonoBehaviour
 
             GenerateLogicGrid();
 
+            /*
             if (d_HeroesAI)
             {
                 List<Pathfinding.ObjectPathData> found_Object = Pathfinding.FindAccessibleObjects(m_IAGrid, new Vector2Int(0, 5));
@@ -128,7 +129,7 @@ public class UIGrid : MonoBehaviour
                 {
                     StartCoroutine(d_HeroesAI.Move(found_Object[0].path, this, 0.5f));
                 }
-            }
+            }*/
         }
     }
 
@@ -169,6 +170,12 @@ public class UIGrid : MonoBehaviour
 
     }
 
+    public List<Pathfinding.ObjectPathData> GetAllPathesFrom(Vector2Int start)
+    {
+        GenerateLogicGrid();
+        return Pathfinding.FindAccessibleObjects(m_IAGrid, start);
+    }
+
     private void GenerateLogicGrid()
     {
         Cell[,] newGrid = new Cell[getColumn(), getRow()];
@@ -188,6 +195,12 @@ public class UIGrid : MonoBehaviour
     private void Update()
     {
         m_Pivot.localPosition = new Vector3(getWidth() / 2, getHeight() / 2, 0);
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            StartCoroutine(d_HeroesAI.ExploreRoom(this, new Vector2Int(0, 5)));
+            //d_HeroesAI
+        }
     }
 
     private void OnMouseOver()

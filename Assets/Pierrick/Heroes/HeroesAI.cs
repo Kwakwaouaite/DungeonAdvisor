@@ -4,19 +4,10 @@ using UnityEngine;
 
 public class HeroesAI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool m_ReachedExit;
+    private List<Vector2Int> m_ItemVisited;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public IEnumerator Move(List<Vector2Int> path, UIGrid room, float Speed)
+    public IEnumerator Move(List<Vector2Int> path, UIGrid room, float Speed = 0.5f)
     {
 
         float wRatio = room.getCellW();
@@ -38,6 +29,43 @@ public class HeroesAI : MonoBehaviour
                 currentPosition += direction * deltaPercentage;
                 gameObject.transform.position = room.transform.position + new Vector3(currentPosition.x * wRatio, currentPosition.y * hRatio);
                 yield return null;
+            }
+        }
+    }
+    
+    public IEnumerator ExploreRoom(UIGrid room, Vector2Int start)
+    {
+        m_ReachedExit = false;
+        m_ItemVisited = new List<Vector2Int>();
+
+        Vector2Int currentPos = start;
+
+        while (!m_ReachedExit)
+        {
+            Debug.Log("Let's a goo");
+            m_ItemVisited.Add(currentPos);
+            List<Pathfinding.ObjectPathData> nearObjects = room.GetAllPathesFrom(currentPos);
+
+            Pathfinding.ObjectPathData nextObj = null;
+
+            foreach (Pathfinding.ObjectPathData obj in nearObjects)
+            {
+                if (!m_ItemVisited.Contains(obj.path[obj.path.Count - 1]))
+                {
+                    //m_ItemVisited.Add(obj.path[obj.path.Count - 1]);
+                    nextObj = obj;
+                    break;
+                }
+            }
+
+            if (nextObj != null)
+            {
+                yield return Move(nextObj.path, room);
+                currentPos = nextObj.path[nextObj.path.Count - 1];
+            }
+            else
+            {
+                m_ReachedExit = true;
             }
         }
     }
