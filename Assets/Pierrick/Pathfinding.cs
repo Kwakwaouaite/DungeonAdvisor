@@ -5,7 +5,7 @@ public class Pathfinding : MonoBehaviour
 {
     public class ObjectPathData
     {
-        public DA_Object objectFound;
+        public UIItem.eType objectFound;
         public List<Vector2Int> path;
     }
 
@@ -63,7 +63,7 @@ public class Pathfinding : MonoBehaviour
 
                             newPathData.objectFound = potentialCell.m_Object;
 
-                            if (newPathData.objectFound != null)
+                            if (newPathData.objectFound != UIItem.eType.None)
                             {
                                 ObjectFound.Add(newPathData);
                             }

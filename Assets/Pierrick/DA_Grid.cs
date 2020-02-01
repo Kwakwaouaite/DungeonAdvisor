@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Cell
 {
-    public DA_Object m_Object;
+    public UIItem.eType m_Object;
 
     public virtual bool IsWalkable()
     {
@@ -12,7 +12,7 @@ public class Cell
 
     public virtual bool HaveStuff()
     {
-        return m_Object != null;
+        return m_Object != UIItem.eType.None;
     }
 }
 
@@ -103,7 +103,7 @@ public class DA_Grid : MonoBehaviour
                     float rand2 = Random.Range(0.0f, 1.0f);
                     if(rand2 > 0.9f)
                     {
-                        m_Cells[i, j].m_Object = new DA_Object();
+                        m_Cells[i, j].m_Object = UIItem.eType.Chest;
                     }
                 }
                 else
