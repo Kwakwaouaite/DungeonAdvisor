@@ -11,6 +11,8 @@ public class UIGrid : MonoBehaviour
     [SerializeField] UICell m_CellBase;
     [SerializeField] DA_Grid m_IAGrid;
 
+    [SerializeField] HeroesAI d_HeroesAI;
+
     float getWidth()    { return m_RoomConfig.getWidth() / m_ScreenRefConfig.getWidth();  }
     float getHeight()   { return m_RoomConfig.getHeight() / m_ScreenRefConfig.getHeight();  }
     public float getCellW()    { return m_RoomConfig.m_CellW / m_ScreenRefConfig.getWidth(); }
@@ -117,6 +119,16 @@ public class UIGrid : MonoBehaviour
             AddDoors();
 
             GenerateLogicGrid();
+
+            if (d_HeroesAI)
+            {
+                List<Pathfinding.ObjectPathData> found_Object = Pathfinding.FindAccessibleObjects(m_IAGrid, new Vector2Int(0, 5));
+
+                if (found_Object.Count > 0)
+                {
+                    StartCoroutine(d_HeroesAI.Move(found_Object[0].path, this, 0.5f));
+                }
+            }
         }
     }
 

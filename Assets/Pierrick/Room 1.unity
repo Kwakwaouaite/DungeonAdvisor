@@ -221,6 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Height: 6
   m_Width: 8
+  d_UIGrid: {fileID: 2130726511}
 --- !u!4 &563588131
 Transform:
   m_ObjectHideFlags: 0
@@ -285,6 +286,8 @@ MonoBehaviour:
   m_Hover: {fileID: 1913628290}
   m_Room: {fileID: 2130726511}
   m_Item: {fileID: 0}
+  m_X: 0
+  m_Y: 0
 --- !u!61 &756850275
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -311,6 +314,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0
+--- !u!1 &1078126531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6078514962896812845, guid: c66a3316f601e4d63a1d89f990e24833,
+    type: 3}
+  m_PrefabInstance: {fileID: 334784361976621179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1078126533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078126531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2edcc5d80f526c4fbe9a8fe3336cc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1089871334
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +977,7 @@ MonoBehaviour:
   m_Background: {fileID: 1689160022}
   m_CellBase: {fileID: 756850274}
   m_IAGrid: {fileID: 563588130}
+  d_HeroesAI: {fileID: 1078126533}
 --- !u!4 &2130726512
 Transform:
   m_ObjectHideFlags: 0
