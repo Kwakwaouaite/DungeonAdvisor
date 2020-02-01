@@ -112,9 +112,19 @@ public class UIGrid : MonoBehaviour
             }
             m_CellBase.gameObject.SetActive(false);
 
+            ApplyRandomDamageToAllCell();
+
             AddDoors();
 
             GenerateLogicGrid();
+        }
+    }
+
+    private void ApplyRandomDamageToAllCell()
+    {
+        foreach (UICell uICell in m_Cells)
+        {
+            uICell.SetDamage(Random.Range(0, uICell.GetMaxDamage() + 1));
         }
     }
 

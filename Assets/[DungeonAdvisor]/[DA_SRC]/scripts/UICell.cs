@@ -9,7 +9,7 @@ public class UICell : MonoBehaviour
 
     public int m_X;
     public int m_Y;
-    int m_Damage ;
+    int m_Damage = 0;
 
     public UIItem.eType GetEType()
     {
@@ -26,7 +26,12 @@ public class UICell : MonoBehaviour
         return m_Damage < GetMaxDamage();
     }
 
-    private int GetMaxDamage()
+    public void SetDamage(int damage)
+    {
+        m_Damage = Mathf.Clamp(damage, 0, GetMaxDamage());
+    }
+
+    public int GetMaxDamage()
     {
         return m_Room.GetRoomConfig().m_BrokenSet.Length;
     }
@@ -43,9 +48,7 @@ public class UICell : MonoBehaviour
         col2D.size = colSize;
 
         m_Hover.gameObject.SetActive(false);
-
-        int max = GetMaxDamage() + 1;
-        m_Damage = Random.Range(0, max);
+        
         m_Visual.flipX = Random.Range(0, 127) < 64;
         m_Visual.flipY = Random.Range(0, 127) < 64;
     }
