@@ -3,6 +3,16 @@
 [CreateAssetMenu(fileName = "RoomConfig", menuName = "Dungeon Advisor/RoomConfig", order = 1)]
 public class RoomConfig : ScriptableObject
 {
+    public enum eDir
+    {
+        UP,
+        RIGHT,
+        DOWN,
+        LEFT,
+
+        COUNT
+    };
+
     public float m_Column;
     public float m_Row;
 
@@ -11,6 +21,8 @@ public class RoomConfig : ScriptableObject
 
     public Sprite m_Background;
     public Sprite[] m_BrokenSet;
+    public Color[] m_HoverColor;
+    public UIItem[] m_Doors ;
 
     public float getWidth() { return m_CellW * m_Column; }
     public float getHeight() { return m_CellH * m_Row;   }
@@ -25,5 +37,15 @@ public class RoomConfig : ScriptableObject
 
         return pos;
     }
+
+    public UIItem GetDoor(eDir dir)
+    {
+        return m_Doors[(int)dir];
+    }
+
+    public int GetLeft() { return 0; }
+    public int GetRight() { return (int)(m_Column-1); }
+    public int GetUp() { return (int)(m_Row-1); }
+    public int GetDown() { return 0; }
 
 }
