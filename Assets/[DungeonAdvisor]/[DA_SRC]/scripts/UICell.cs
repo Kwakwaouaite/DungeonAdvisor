@@ -7,10 +7,34 @@ public class UICell : MonoBehaviour
     [SerializeField] UIGrid         m_Room;
     [SerializeField] UIItem         m_Item;
 
-    int m_X;
-    int m_Y;
-    int m_Damage ;
+    public int m_X;
+    public int m_Y;
+    int m_Damage = 0;
 
+    public UIItem.eType GetEType()
+    {
+        if (m_Item != null)
+        {
+            return m_Item.getItemType();
+        }
+
+        return UIItem.eType.None;
+    }
+
+    public bool GetWalkable()
+    {
+        return m_Damage < GetMaxDamage();
+    }
+
+    public void SetDamage(int damage)
+    {
+        m_Damage = Mathf.Clamp(damage, 0, GetMaxDamage());
+    }
+
+    public int GetMaxDamage()
+    {
+        return m_Room.GetRoomConfig().m_BrokenSet.Length;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +48,7 @@ public class UICell : MonoBehaviour
         col2D.size = colSize;
 
         m_Hover.gameObject.SetActive(false);
-
-        int max = m_Room.GetRoomConfig().m_BrokenSet.Length + 1;
-        m_Damage = Random.Range(0, max);
+        
         m_Visual.flipX = Random.Range(0, 127) < 64;
         m_Visual.flipY = Random.Range(0, 127) < 64;
     }
