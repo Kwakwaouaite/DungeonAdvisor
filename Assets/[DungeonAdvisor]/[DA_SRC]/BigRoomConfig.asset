@@ -21,6 +21,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 42b21161a412b4c9aaf16b18a9089d46, type: 3}
   - {fileID: 21300000, guid: 9f185b7aba95e41e38bc1e53f4ecadf3, type: 3}
   - {fileID: 21300000, guid: 886d99c7e8dd241d0b3aaa27178f57c1, type: 3}
+  m_LiquidSet:
+  - {fileID: 21300000, guid: c75f26924d33c43d8b1cf10d119c4baf, type: 3}
+  - {fileID: 21300000, guid: cd6df09d731574d489059e742977e179, type: 3}
   m_HoverColor:
   - {r: 0.23532487, g: 1, b: 0.08018869, a: 1}
   - {r: 0.9201927, g: 1, b: 0.042452812, a: 1}

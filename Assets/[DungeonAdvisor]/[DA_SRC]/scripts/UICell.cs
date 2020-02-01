@@ -10,6 +10,7 @@ public class UICell : MonoBehaviour
     public int m_X;
     public int m_Y;
     int m_Damage = 0;
+    public int m_Liquid = 0;
 
     public UIItem.eType GetEType()
     {
@@ -46,6 +47,11 @@ public class UICell : MonoBehaviour
         return m_Damage != 0;
     }
 
+    public bool isLiquid()
+    {
+        return m_Liquid != 0;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,18 +82,31 @@ public class UICell : MonoBehaviour
             if (m_Item.getItemType() == UIItem.eType.Door)
             {
                 m_Damage = 0;
+                m_Visual.sprite = null;
+                return;
+
             }
+
         }
-        int damage = getDamage();
-        if (damage==0)
+
+        if (isLiquid())
         {
-            m_Visual.sprite = null;
+            m_Visual.sprite = m_Room.GetRoomConfig().m_LiquidSet[m_Liquid - 1];
         }
         else
         {
-            m_Visual.sprite = m_Room.GetRoomConfig().m_BrokenSet[damage-1];
+            int damage = getDamage();
+            if (damage == 0)
+            {
+                m_Visual.sprite = null;
+            }
+            else
+            {
+                m_Visual.sprite = m_Room.GetRoomConfig().m_BrokenSet[damage - 1];
+            }
+
+            m_Hover.color = m_Room.GetRoomConfig().m_HoverColor[damage];
         }
-        m_Hover.color = m_Room.GetRoomConfig().m_HoverColor[damage];
 
     }
 

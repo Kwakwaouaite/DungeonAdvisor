@@ -21,6 +21,7 @@ public class RoomConfig : ScriptableObject
 
     public Sprite m_Background;
     public Sprite[] m_BrokenSet;
+    public Sprite[] m_LiquidSet;
     public Color[] m_HoverColor;
     public UIItem[] m_Doors ;
 
