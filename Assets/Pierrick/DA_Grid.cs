@@ -83,7 +83,7 @@ public class DA_Grid : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         GenerateRandomGrid();
     }
@@ -117,10 +117,9 @@ public class DA_Grid : MonoBehaviour
         d_foundObjects = found_Object;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetCells(Cell [,] grid)
     {
-
+        m_Cells = grid;
     }
 
     // Update is called once per frame

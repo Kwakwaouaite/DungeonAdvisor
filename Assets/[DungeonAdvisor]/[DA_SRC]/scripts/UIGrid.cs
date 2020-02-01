@@ -8,6 +8,7 @@ public class UIGrid : MonoBehaviour
     [SerializeField] Transform m_Pivot;
     [SerializeField] SpriteRenderer m_Background;
     [SerializeField] UICell m_CellBase;
+    [SerializeField] DA_Grid m_IAGrid;
 
     float getWidth()    { return m_RoomConfig.getWidth() / m_ScreenRefConfig.getWidth();  }
     float getHeight()   { return m_RoomConfig.getHeight() / m_ScreenRefConfig.getHeight();  }
@@ -49,6 +50,9 @@ public class UIGrid : MonoBehaviour
     private void Awake()
     {
         Debug.Log("awake");
+
+        m_IAGrid.m_Width  = getColumn();
+        m_IAGrid.m_Height = getRow();
     }
     // Start is called before the first frame update
     void Start()
