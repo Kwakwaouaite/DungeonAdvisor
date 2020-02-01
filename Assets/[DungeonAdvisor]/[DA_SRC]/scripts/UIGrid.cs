@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
 public class UIGrid : MonoBehaviour
 {
     [SerializeField] RoomConfig m_RoomConfig;
@@ -54,6 +53,13 @@ public class UIGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+        Vector2 colSize = new Vector2(getWidth(), getHeight());
+        Vector2 colOffs = colSize * 0.5f;
+
+        col.size = colSize;
+        col.offset = colOffs;
+
         Debug.Log("start");
         SetupRoom();
     }
@@ -135,6 +141,12 @@ public class UIGrid : MonoBehaviour
     {
         m_Pivot.localPosition = new Vector3(getWidth() / 2, getHeight() / 2, 0);
     }
+
+    private void OnMouseOver()
+    {
+        Debug.Log("On grid");
+    }
+
     void OnDrawGizmos()
     {
         if (m_RoomConfig == null)
