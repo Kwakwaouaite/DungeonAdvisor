@@ -36,6 +36,11 @@ public class UICell : MonoBehaviour
         return m_Room.GetRoomConfig().m_BrokenSet.Length;
     }
 
+    public bool isFullBroken()
+    {
+        return m_Damage == GetMaxDamage();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,7 +86,7 @@ public class UICell : MonoBehaviour
 
     }
 
-    bool canHover()
+    public bool canHover()
     {
         return (!m_Item)
             || m_Item.getItemType() != UIItem.eType.Door;
@@ -90,8 +95,9 @@ public class UICell : MonoBehaviour
     {
         if (canHover())
         {
-            Debug.Log("Over " + name);
+          //  Debug.Log("Over " + name);
             m_Hover.gameObject.SetActive(true);
+            GameManager.SetActiveCell(this);
         }
     }
 
@@ -115,10 +121,13 @@ public class UICell : MonoBehaviour
     private void OnMouseExit()
     {
         m_Hover.gameObject.SetActive(false);
+        GameManager.ResetActiveCell(this);
+
     }
 
     int getDamage() { return m_Damage; }
-    bool canRepair() { return m_Item == null;  }
+    public bool canRepair() { return m_Item == null;  }
+
 
     public void AddItem(UIItem item) { m_Item = item;  }
     public void SetCoord(int x, int y) { m_X = x; m_Y = y; }

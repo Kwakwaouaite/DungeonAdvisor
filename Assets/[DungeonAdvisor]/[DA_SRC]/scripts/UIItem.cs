@@ -20,7 +20,6 @@ public class UIItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Broken = false;
         RefreshState();
     }
 
@@ -33,6 +32,11 @@ public class UIItem : MonoBehaviour
     public void Repair()
     {
         m_Broken = false;
+        RefreshState();
+    }
+
+    private void Update()
+    {
         RefreshState();
     }
 
