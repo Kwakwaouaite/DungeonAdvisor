@@ -11,6 +11,7 @@ public class UICell : MonoBehaviour
     int m_Y;
     int m_Damage ;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,8 @@ public class UICell : MonoBehaviour
 
         int max = m_Room.GetRoomConfig().m_BrokenSet.Length + 1;
         m_Damage = Random.Range(0, max);
+        m_Visual.flipX = Random.Range(0, 127) < 64;
+        m_Visual.flipY = Random.Range(0, 127) < 64;
     }
 
     // Update is called once per frame
