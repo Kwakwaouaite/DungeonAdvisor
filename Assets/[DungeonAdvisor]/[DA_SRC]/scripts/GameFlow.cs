@@ -257,7 +257,7 @@ public class GameFlow : MonoBehaviour
 
         m_State = eSTATE.fsmExit;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator waitMessage(string text, float duration = 2.0f)
