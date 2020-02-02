@@ -17,7 +17,8 @@ public class UIItem : MonoBehaviour
     [SerializeField] GameObject m_Visual;
     [SerializeField] GameObject m_VisualBroken;
     [SerializeField] bool m_Broken;
-    [SerializeField] int m_Cost;
+    [SerializeField] int m_BuyCost;
+    [SerializeField] int m_RepairCost;
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +37,34 @@ public class UIItem : MonoBehaviour
         RefreshState();
     }
 
+    public bool CanBuy()
+    {
+        return (GameManager.HasEnoughGold(m_BuyCost));
+    }
+
+    public void Buy()
+    {
+        if (CanBuy())
+        {
+            m_Broken = false;
+            GameManager.DecGold(m_BuyCost);
+            RefreshState();
+        }
+    }
+
+    public bool CanRepair()
+    {
+        return (GameManager.HasEnoughGold(m_RepairCost));
+    }
+
     public void Repair()
     {
-        m_Broken = false;
-        RefreshState();
+        if (CanRepair() && m_Broken)
+        {
+            m_Broken = false;
+            GameManager.DecGold(m_RepairCost);
+            RefreshState();
+        }
     }
 
     private void Update()

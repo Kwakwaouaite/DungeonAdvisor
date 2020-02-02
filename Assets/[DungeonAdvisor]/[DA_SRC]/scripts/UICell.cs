@@ -6,6 +6,7 @@ public class UICell : MonoBehaviour
     [SerializeField] SpriteRenderer m_Hover;
     [SerializeField] UIGrid         m_Room;
     [SerializeField] UIItem         m_Item;
+    [SerializeField] int            m_RepairCost;
 
     public int m_X;
     public int m_Y;
@@ -104,7 +105,6 @@ public class UICell : MonoBehaviour
                 m_Damage = 0;
                 m_Visual.sprite = null;
                 return;
-
             }
 
         }
@@ -160,10 +160,15 @@ public class UICell : MonoBehaviour
             return;
         }
 
-        if (canRepair() && m_Damage==0)
+        if ((!GameManager.HasEnoughGold(m_RepairCost))
+            ||( !canRepair() )
+            || m_Damage==0
+            )
         {
             return;
         }
+
+        GameManager.DecGold(m_RepairCost);
 
         m_Damage--;
        

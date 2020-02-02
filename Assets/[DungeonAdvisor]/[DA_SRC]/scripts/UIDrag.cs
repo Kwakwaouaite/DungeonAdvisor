@@ -62,6 +62,7 @@ public class UIDrag : MonoBehaviour
     {
         return (
             GameManager.CanAddItems() &&
+            m_Item.CanBuy() &&
             cell &&
             cell.canHover() &&
             cell.GetEType() == UIItem.eType.None &&
@@ -106,6 +107,8 @@ public class UIDrag : MonoBehaviour
                 UIItem item = Instantiate<UIItem>(m_Item, activeCell.transform);
                 activeCell.AddItem(item);
                 m_DragOffset = Vector3.zero;
+
+                m_Item.Buy();
             }
         }
         m_SnapToPos = false;

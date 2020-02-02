@@ -130,7 +130,8 @@ MonoBehaviour:
   m_Visual: {fileID: 511902432930290811}
   m_VisualBroken: {fileID: 511902431327985324}
   m_Broken: 0
-  m_Cost: 0
+  m_BuyCost: 40
+  m_RepairCost: 20
 --- !u!1 &511902432930290811
 GameObject:
   m_ObjectHideFlags: 0

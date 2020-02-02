@@ -13,6 +13,7 @@ public class RoomConfig : ScriptableObject
         COUNT
     };
 
+
     public float m_Column;
     public float m_Row;
 

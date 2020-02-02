@@ -211,4 +211,5 @@ MonoBehaviour:
   m_Visual: {fileID: 5701817688124076942}
   m_VisualBroken: {fileID: 5701817687578898777}
   m_Broken: 0
-  m_Cost: 0
+  m_BuyCost: 40
+  m_RepairCost: 20

@@ -2,7 +2,7 @@
 {
     static UICell m_ActiveCell;
 
-    static int m_Gold = 4000;
+    static int m_Gold = 400;
     static bool m_GroupExploring;
     static bool m_PopupMessageOpen;
 
@@ -23,7 +23,7 @@
     public static void PopupMessageOpen() { m_PopupMessageOpen = true; }
     public static void PopupMessageClosed() { m_PopupMessageOpen = false; }
 
-    public static bool AsEnoughGold(int value) { return value <= m_Gold; }
+    public static bool HasEnoughGold(int value) { return value <= m_Gold; }
     public static int GetGold() { return m_Gold; }
     public static void AddGold(int value) { m_Gold += value; }
     public static void DecGold(int value) {  m_Gold -= value; if (m_Gold < 0) { m_Gold = 0; } }

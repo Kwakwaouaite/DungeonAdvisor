@@ -16,7 +16,7 @@ public class UIGold : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_Value = Mathf.Lerp(m_Value, (float)GameManager.GetGold(), 0.8f);
+        m_Value = Mathf.Lerp(m_Value, (float)GameManager.GetGold(), 0.2f);
         m_txtValue.SetText(m_Value.ToString("### ### ###"));
     }
 }
