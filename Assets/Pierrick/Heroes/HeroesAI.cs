@@ -16,6 +16,8 @@ public class HeroesAI : MonoBehaviour
 
     public Vector2Int m_CurrentPos;
 
+    public WaveConfig m_CurrentWaveConfig;
+
     public void SetOffset(float x, float  y)
     {
         Vector3 localPos = new Vector3(x, y, m_Root.localPosition.z);
@@ -90,11 +92,34 @@ public class HeroesAI : MonoBehaviour
         }
     }
     
-    public IEnumerator ExploreRoom(UIGrid room, Vector2Int start)
+    public IEnumerator ExploreRoom(UIGrid room, WaveConfig waveConfig)
     {
         if (GameManager.IsGroupExploring())
         {
             yield break;
+        }
+
+        m_CurrentWaveConfig = waveConfig;
+        Vector2Int start = Vector2Int.zero;
+
+        switch (waveConfig.m_Door)
+        {
+            case RoomConfig.eDir.UP:
+                start = new Vector2Int(5, room.m_RoomConfig.GetUp());
+                break;
+            case RoomConfig.eDir.DOWN:
+                start = new Vector2Int(5, room.m_RoomConfig.GetDown());
+                break;
+            case RoomConfig.eDir.LEFT:
+                start = new Vector2Int(room.m_RoomConfig.GetLeft(), 5);
+                break;
+            case RoomConfig.eDir.RIGHT:
+                start = new Vector2Int(room.m_RoomConfig.GetRight(), 5);
+                break;
+            default:
+                start = new Vector2Int(room.m_RoomConfig.GetLeft(), 5);
+                break;
+
         }
 
         GameManager.StartGroupExploring();

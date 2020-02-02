@@ -121,7 +121,7 @@ public class GameFlow : MonoBehaviour
         WaveConfig wave = new WaveConfig();
         wave.InitRandom();
 
-        m_Grid.LaunchExploreRoom();
+        m_Grid.LaunchExploreRoom(wave);
 
         yield return null;
 
