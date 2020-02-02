@@ -3,6 +3,9 @@
     static public SoundManager SoundManager;
     static UICell m_ActiveCell;
 
+    static public int m_GoldReward;
+    static public float m_Happiness;
+
     static int m_Gold = 400;
     static bool m_GroupExploring;
     static bool m_PopupMessageOpen;
