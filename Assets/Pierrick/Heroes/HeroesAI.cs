@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HeroesAI : MonoBehaviour
 {
+    [SerializeField] private SpeechBubble speechBubble;
+
     private bool m_ReachedExit;
     private List<Vector2Int> m_ItemVisited;
 
@@ -18,11 +20,20 @@ public class HeroesAI : MonoBehaviour
             {
                 item.Use();
                 Debug.Log("Happy");
+                if (speechBubble)
+                {
+                    StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Happy));
+                }
+
             }
             else
             {
 
                 Debug.Log("Not happy");
+                if (speechBubble)
+                {
+                    StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Sad));
+                }
             }
             yield return new WaitForSeconds(0.5f);
         }
