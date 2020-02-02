@@ -225,11 +225,19 @@ public class UIGrid : MonoBehaviour
     {
         m_Pivot.localPosition = new Vector3(getWidth() / 2, getHeight() / 2, 0);
 
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.S))
         {
-            StartCoroutine(d_HeroesAI.ExploreRoom(this, new Vector2Int(0, 5)));
+            LaunchExploreRoom();
+            
             //d_HeroesAI
         }
+#endif
+    }
+
+    public void LaunchExploreRoom()
+    {
+        StartCoroutine(d_HeroesAI.ExploreRoom(this, new Vector2Int(0, 5)));
     }
 
     private void OnMouseOver()

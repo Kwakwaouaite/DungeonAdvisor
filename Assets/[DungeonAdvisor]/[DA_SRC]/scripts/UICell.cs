@@ -132,8 +132,10 @@ public class UICell : MonoBehaviour
 
     public bool canHover()
     {
-        return (!m_Item)
-            || m_Item.getItemType() != UIItem.eType.Door;
+        return
+            ( GameManager.canRepair() || GameManager.CanAddItems())
+            &&((!m_Item)
+            || m_Item.getItemType() != UIItem.eType.Door);
     }
     private void OnMouseOver()
     {
@@ -147,6 +149,11 @@ public class UICell : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if (!GameManager.canRepair())
+        {
+            return;
+        }
+
         if (m_Item)
         {
             m_Item.Repair();

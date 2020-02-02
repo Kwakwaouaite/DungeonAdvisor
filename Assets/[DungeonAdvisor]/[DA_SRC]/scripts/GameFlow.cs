@@ -19,6 +19,8 @@ public class GameFlow : MonoBehaviour
     };
 
     [SerializeField] UITopMessage m_Message;
+    [SerializeField] UIGrid m_Grid;
+    [SerializeField] UITimer m_Timer;
 
     public GameConfig m_GameConfig;
     public eSTATE m_State;
@@ -35,7 +37,6 @@ public class GameFlow : MonoBehaviour
         StartCoroutine(FSM(eSTATE.fsmStartPhase));
     }
 
-
     public bool IsGameFlowFinished()
     {
         return m_State == eSTATE.fsmExit;
@@ -50,7 +51,13 @@ public class GameFlow : MonoBehaviour
         m_State = state;
         // Execute the current coroutine (state)
         while (m_State != eSTATE.fsmExit)
+        {
+            GameManager.SetGameFlowState(m_State);
             yield return StartCoroutine(m_State.ToString(), m_State);
+        }
+
+        GameManager.SetGameFlowState(m_State);
+
     }
 
     //************************************************
@@ -77,6 +84,7 @@ public class GameFlow : MonoBehaviour
 
         yield return waitMessage("Construct Now");
 
+        m_Timer.SetTimer(m_GameConfig.m_ConstructDuration);
 
         yield return new WaitForSeconds(m_GameConfig.m_ConstructDuration);
 
@@ -87,6 +95,8 @@ public class GameFlow : MonoBehaviour
     {
         yield return waitMessage("Repair Now");
 
+        m_Timer.SetTimer(m_GameConfig.m_InterWaveDuration);
+
 
         yield return new WaitForSeconds(m_GameConfig.m_InterWaveDuration);
 
@@ -96,7 +106,7 @@ public class GameFlow : MonoBehaviour
 
     IEnumerator fsmWaveReady(eSTATE state)
     {
-        yield return waitMessage("The Hero are ready");
+        yield return waitMessage("The wave " + (m_WaveDone + 1) + " is ready");
 
         m_State = eSTATE.fsmWaveRun;
 
@@ -104,6 +114,10 @@ public class GameFlow : MonoBehaviour
 
     IEnumerator fsmWaveRun(eSTATE state)
     {
+        m_Grid.LaunchExploreRoom();
+
+        yield return null;
+
         while (state == m_State)
         {
             if (!GameManager.IsGroupExploring())
@@ -118,7 +132,7 @@ public class GameFlow : MonoBehaviour
     IEnumerator fsmWaveFinished(eSTATE state)
     {
 
-        yield return waitMessage("The Hero are finished");
+        yield return waitMessage("The wave "+ (m_WaveDone+1)+" have finished");
 
         m_State = eSTATE.fsmIsNextWave;
     }
