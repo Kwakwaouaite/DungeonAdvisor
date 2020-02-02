@@ -80,6 +80,8 @@ public class UIGrid : MonoBehaviour
         col.size = colSize;
         col.offset = colOffs;
 
+        d_HeroesAI.SetOffset(getCellW() *.5f, getCellH());
+
         Debug.Log("start");
         SetupRoom();
     }

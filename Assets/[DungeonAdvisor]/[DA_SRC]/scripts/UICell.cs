@@ -47,6 +47,11 @@ public class UICell : MonoBehaviour
         m_Damage = Mathf.Clamp(m_Damage + damage, 0, GetMaxDamage());
     }
 
+    public void DoRepair(int damage = 1)
+    {
+        m_Damage = Mathf.Clamp(m_Damage - damage, 0, GetMaxDamage());
+    }
+
     public int GetMaxDamage()
     {
         return m_Room.GetRoomConfig().m_BrokenSet.Length;

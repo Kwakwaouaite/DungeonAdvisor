@@ -7,11 +7,20 @@ public class HeroesAI : MonoBehaviour
     [SerializeField] private SpeechBubble speechBubble;
     [SerializeField] private static int waitingStep = 5;
     [SerializeField] private static float waitingTimes = 1.0f;
+    [SerializeField] Transform m_Root;
 
     private bool m_ReachedExit;
     private List<Vector2Int> m_ItemVisited;
 
+
     public Vector2Int m_CurrentPos;
+
+    public void SetOffset(float x, float  y)
+    {
+        Vector3 localPos = new Vector3(x, y, m_Root.localPosition.z);
+
+        m_Root.localPosition = localPos;
+    }
 
     public IEnumerator UseObject(UIGrid room, Vector2Int objectPos)
     {
