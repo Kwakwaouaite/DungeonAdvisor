@@ -18,13 +18,22 @@ public class ObjectiveUI : MonoBehaviour
     {
         if (waveConfig != null)
         {
-            textMesh.text = "Arrive: " + waveConfig.m_Door.ToString();
+            textMesh.text = "Arrive: " + waveConfig.m_Door.ToString().ToLower();
             textMesh.text += "\nObjective: ";
 
             for (int i = 0; i< waveConfig.m_Goal.Length; i++)
             {
-
+                if (waveConfig.m_Goal[i] == UIItem.eType.Enemy)
+                {
+                    textMesh.text += "\n- scorpion";
+                }
+                else
+                {
+                    textMesh.text += "\n- " + waveConfig.m_Goal[i].ToString().ToLower();
+                }
             }
+
+            textMesh.text += "\nReward: " + waveConfig.m_Reward;
         }
     }
 }

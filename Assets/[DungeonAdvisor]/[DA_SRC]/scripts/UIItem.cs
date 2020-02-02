@@ -10,6 +10,11 @@ public class UIItem : MonoBehaviour
         Enemy,
         Trap,
         Torch,
+        Princess,
+        Potion,
+        Helmet,
+        Jar,
+        Gold,
         Count
     };
 

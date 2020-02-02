@@ -15,7 +15,11 @@ public class WaveConfig
         m_GoalAccomplished = new bool[numberOfGoals];
         for (int i=0; i < numberOfGoals; i++)
         {
-            m_Goal[i] = (UIItem.eType) Random.Range(0, numberOfGoals);
+            m_Goal[i] = (UIItem.eType) Random.Range(0, (int) UIItem.eType.Count);
+            if (m_Goal[i] == UIItem.eType.Door)
+            {
+                m_Goal[i] = UIItem.eType.Chest;
+            }
             m_GoalAccomplished[i] = false;
         }
 
