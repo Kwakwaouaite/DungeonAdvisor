@@ -86,7 +86,7 @@ public class HeroesAI : MonoBehaviour
 
         m_CurrentPos = start;
 
-        StartCoroutine(ScaleUp());
+        yield return ScaleUp();
 
         while (!m_ReachedExit)
         {
