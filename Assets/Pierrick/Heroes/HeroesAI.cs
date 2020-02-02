@@ -5,9 +5,10 @@ using UnityEngine;
 public class HeroesAI : MonoBehaviour
 {
     [SerializeField] private SpeechBubble speechBubble;
-    [SerializeField] private int m_MaxWaitingStep = 5;
-    [SerializeField] private float m_MaxWaitingTimes = 1.0f;
     [SerializeField] Transform m_Root;
+
+    public HeroesConfig m_HeroesConfig;
+    public int m_Happiness = -1;
 
     private bool m_ReachedExit;
     private List<Vector2Int> m_ItemVisited;
@@ -22,6 +23,13 @@ public class HeroesAI : MonoBehaviour
         m_Root.localPosition = localPos;
     }
 
+    public float GetPercentageHappiness()
+    {
+        float clampedHappinnes = Mathf.Clamp(m_Happiness, m_HeroesConfig.MinHappiness, m_HeroesConfig.MaxHappiness);
+        float range = m_HeroesConfig.MaxHappiness - m_HeroesConfig.MinHappiness;
+        return clampedHappinnes / range;
+    }
+
     public IEnumerator UseObject(UIGrid room, Vector2Int objectPos)
     {
         UIItem item = room.GetItem(objectPos);
@@ -31,6 +39,8 @@ public class HeroesAI : MonoBehaviour
             {
                 item.Use();
                 Debug.Log("Happy");
+                m_Happiness += m_HeroesConfig.HappinessUsingObject;
+
                 if (speechBubble)
                 {
                     StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Happy));
@@ -41,6 +51,7 @@ public class HeroesAI : MonoBehaviour
             {
 
                 Debug.Log("Not happy");
+                m_Happiness += m_HeroesConfig.HappinessUsingObject;
                 if (speechBubble)
                 {
                     StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Sad));
@@ -84,6 +95,8 @@ public class HeroesAI : MonoBehaviour
         m_ReachedExit = false;
         m_ItemVisited = new List<Vector2Int>();
 
+        m_Happiness = m_HeroesConfig.StartHappiness;
+
         m_CurrentPos = start;
 
         yield return ScaleUp();
@@ -96,7 +109,7 @@ public class HeroesAI : MonoBehaviour
 
             int currentWaitStep = 0;
 
-           while (currentWaitStep < m_MaxWaitingStep && nextObj == null)
+           while (currentWaitStep < m_HeroesConfig.m_MaxWaitingStep && nextObj == null)
             {
                 Debug.Log("Wait step: " + currentWaitStep);
                 nextObj = ChooseNextObject(room);
@@ -105,9 +118,9 @@ public class HeroesAI : MonoBehaviour
                 {
                     if (speechBubble)
                     {
-                        StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Timer1 + currentWaitStep, m_MaxWaitingTimes / m_MaxWaitingStep));
+                        StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Timer1 + currentWaitStep, m_HeroesConfig.m_MaxWaitingTimes / m_HeroesConfig.m_MaxWaitingStep));
                     }
-                    yield return new WaitForSeconds(m_MaxWaitingTimes / m_MaxWaitingStep);
+                    yield return new WaitForSeconds(m_HeroesConfig.m_MaxWaitingTimes / m_HeroesConfig.m_MaxWaitingStep);
                     currentWaitStep++;
                 }
             }
@@ -127,12 +140,15 @@ public class HeroesAI : MonoBehaviour
             }
             else
             {
+                // No path found
+                m_Happiness += m_HeroesConfig.HappinessCannotLeave;
                 m_ReachedExit = true;
             }
         }
 
         yield return ScaleDown();
-
+        float happiness = GetPercentageHappiness();
+        Debug.Log("Exited with happiness: " + happiness);
     }
 
     public IEnumerator ScaleUp()

@@ -78,7 +78,7 @@ SpriteRenderer:
   m_Size: {x: 0.18148148, y: 0.18148148}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2087723634603380244
@@ -159,7 +159,7 @@ SpriteRenderer:
   m_Size: {x: 1.96, y: 1.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3727842518765172044
@@ -341,7 +341,7 @@ SpriteRenderer:
   m_Size: {x: 0.18148148, y: 0.18148148}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4063141216972971236
@@ -422,7 +422,7 @@ SpriteRenderer:
   m_Size: {x: 0.18148148, y: 0.18148148}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4468478649316187763
@@ -584,7 +584,7 @@ SpriteRenderer:
   m_Size: {x: 0.18148148, y: 0.18148148}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6078514962896812845
@@ -632,9 +632,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speechBubble: {fileID: 2660390674091423433}
-  m_MaxWaitingStep: 5
-  m_MaxWaitingTimes: 3
   m_Root: {fileID: 5483707565469693494}
+  m_HeroesConfig: {fileID: 11400000, guid: cefe639642112874fa3fd049059d6b53, type: 2}
+  m_Happiness: -1
   m_CurrentPos: {x: 0, y: 0}
 --- !u!1 &6271656266839046573
 GameObject:
