@@ -1,6 +1,10 @@
 ﻿public class GameManager 
 {
+    static public SoundManager SoundManager;
     static UICell m_ActiveCell;
+
+    static public int m_GoldReward;
+    static public float m_Happiness;
 
     static int m_Gold = 400;
     static bool m_GroupExploring;
@@ -26,7 +30,19 @@
     public static bool HasEnoughGold(int value) { return value <= m_Gold; }
     public static int GetGold() { return m_Gold; }
     public static void AddGold(int value) { m_Gold += value; }
-    public static void DecGold(int value) {  m_Gold -= value; if (m_Gold < 0) { m_Gold = 0; } }
+    public static void DecGold(int value)
+    {
+        m_Gold -= value;
+        if (m_Gold < 0)
+        {
+            m_Gold = 0;
+        }
+
+        if (SoundManager)
+        {
+            SoundManager.PlayCoinSound();
+        }
+    }
 
     public static bool CanAddItems()
     {
