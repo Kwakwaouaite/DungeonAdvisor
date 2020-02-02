@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UIGrid : MonoBehaviour
 {
-    [SerializeField] RoomConfig m_RoomConfig;
+    [SerializeField] public RoomConfig m_RoomConfig;
     [SerializeField] ItemConfig m_ItemConfig;
     [SerializeField] ScreenRefConfig m_ScreenRefConfig;
     [SerializeField] Transform m_Pivot;
@@ -228,16 +228,18 @@ public class UIGrid : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.S))
         {
-            LaunchExploreRoom();
+            WaveConfig wave = new WaveConfig();
+            wave.InitRandom();
+            LaunchExploreRoom(wave);
             
             //d_HeroesAI
         }
 #endif
     }
 
-    public void LaunchExploreRoom()
+    public void LaunchExploreRoom(WaveConfig wave)
     {
-        StartCoroutine(d_HeroesAI.ExploreRoom(this, new Vector2Int(0, 5)));
+        StartCoroutine(d_HeroesAI.ExploreRoom(this, wave));
     }
 
     private void OnMouseOver()

@@ -9,7 +9,7 @@ public class WaveConfig
 
     public RoomConfig.eDir m_Door;
 
-    void InitRandom(int numberOfGoals = 3, int minGold = 40, int maxGold = 100)
+    public void InitRandom(int numberOfGoals = 3, int minGold = 60, int maxGold = 200)
     {
         m_Goal = new UIItem.eType[numberOfGoals];
         m_GoalAccomplished = new bool[numberOfGoals];
@@ -19,7 +19,9 @@ public class WaveConfig
             m_GoalAccomplished[i] = false;
         }
 
-        int m_Rewards = Random.Range(minGold, maxGold+1);
+        m_Reward = Random.Range(minGold, maxGold+1);
+
+        m_Door  = (RoomConfig.eDir) Random.Range(0, (int) RoomConfig.eDir.COUNT);
     }
 
 }

@@ -118,7 +118,10 @@ public class GameFlow : MonoBehaviour
 
     IEnumerator fsmWaveRun(eSTATE state)
     {
-        m_Grid.LaunchExploreRoom();
+        WaveConfig wave = new WaveConfig();
+        wave.InitRandom();
+
+        m_Grid.LaunchExploreRoom(wave);
 
         yield return null;
 
