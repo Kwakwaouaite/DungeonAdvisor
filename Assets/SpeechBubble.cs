@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpeechBubble : MonoBehaviour
 {
+    [SerializeField] GameObject m_Visual;
     [SerializeField] GameObject m_Happy;
     [SerializeField] GameObject m_Med;
     [SerializeField] GameObject m_Sad;
@@ -38,6 +39,8 @@ public class SpeechBubble : MonoBehaviour
 
     public IEnumerator SaySomething(EReactionType message, float duration = 0.5f)
     {
+        m_Visual.SetActive(true);
+
         for (int i = 0; i < (int) EReactionType.Count; i++)
         {
           reactionGameObjects[i].SetActive(i == (int)message);
@@ -46,5 +49,6 @@ public class SpeechBubble : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         reactionGameObjects[(int)message].SetActive(false);
+        m_Visual.SetActive(false);
     }
 }

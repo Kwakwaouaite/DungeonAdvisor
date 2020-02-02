@@ -129,8 +129,8 @@ public class HeroesAI : MonoBehaviour
                 {
                     if (speechBubble)
                     {
-                        StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.NoWay, 0.8f));
-                        yield return new WaitForSeconds(0.4f);
+                        StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.NoWay, m_HeroesConfig.m_TimeWhenLost));
+                        yield return new WaitForSeconds(m_HeroesConfig.m_TimeWhenLost);
                     }
                     /*
                     if (speechBubble)
