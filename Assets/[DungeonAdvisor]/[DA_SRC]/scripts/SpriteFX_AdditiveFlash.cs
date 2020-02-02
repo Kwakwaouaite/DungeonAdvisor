@@ -2,6 +2,8 @@
 
 public class SpriteFX_AdditiveFlash : MonoBehaviour
 {
+    [SerializeField] float m_AlphaMin = 0.2f;
+    [SerializeField] float m_AlphaMax = 0.5f;
 
     SpriteRenderer m_Sprite;
     float          m_Alpha;
@@ -17,7 +19,7 @@ public class SpriteFX_AdditiveFlash : MonoBehaviour
     {
         if (Random.Range(0,128) < 16)
         {
-            m_Alpha = Random.Range(0.2f, 0.5f);
+            m_Alpha = Random.Range(m_AlphaMin, m_AlphaMax);
         }
 
         Color color = m_Sprite.color;
