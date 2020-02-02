@@ -53,9 +53,18 @@ public class HeroesAI : MonoBehaviour
             {
                 if (!m_ItemVisited.Contains(obj.path[obj.path.Count - 1]))
                 {
-                    //m_ItemVisited.Add(obj.path[obj.path.Count - 1]);
-                    nextObj = obj;
-                    break;
+                    // Si on a pas d'objet ou si on a trouvé une porte et que le nouvel objet n'est pas une porte
+                    if (nextObj ==null
+                        || (nextObj.objectFound == UIItem.eType.Door 
+                                && obj.objectFound != UIItem.eType.Door))
+                    {
+                        nextObj = obj;
+                    }
+
+                    if (nextObj.objectFound != UIItem.eType.Door)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -63,6 +72,11 @@ public class HeroesAI : MonoBehaviour
             {
                 yield return Move(nextObj.path, room);
                 currentPos = nextObj.path[nextObj.path.Count - 1];
+
+                if (nextObj.objectFound == UIItem.eType.Door)
+                {
+                    m_ReachedExit = true;
+                }
             }
             else
             {
