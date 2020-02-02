@@ -12,6 +12,7 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] GameObject m_Timer3;
     [SerializeField] GameObject m_Timer4;
     [SerializeField] GameObject m_Timer5;
+    [SerializeField] GameObject m_NoWay;
 
     private GameObject[] reactionGameObjects;
 
@@ -26,12 +27,13 @@ public class SpeechBubble : MonoBehaviour
         Timer3,
         Timer4,
         Timer5,
+        NoWay,
         Count
     }
 
     private void Awake()
     {
-        reactionGameObjects = new GameObject[] { m_Happy, m_Med, m_Sad, m_Timer1, m_Timer2, m_Timer3, m_Timer4, m_Timer5 } ;
+        reactionGameObjects = new GameObject[] { m_Happy, m_Med, m_Sad, m_Timer1, m_Timer2, m_Timer3, m_Timer4, m_Timer5, m_NoWay } ;
     }
 
     public IEnumerator SaySomething(EReactionType message, float duration = 0.5f)
