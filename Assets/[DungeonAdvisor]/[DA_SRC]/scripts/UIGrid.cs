@@ -103,7 +103,7 @@ public class UIGrid : MonoBehaviour
     }
     void SetupRoom()
     {
-        m_Background.sprite = m_RoomConfig.m_Background;
+        m_Background.sprite = m_RoomConfig.getBackround();
 
         if (m_CellBase)
         {

@@ -19,7 +19,7 @@ public class RoomConfig : ScriptableObject
     public float m_CellW;
     public float m_CellH;
 
-    public Sprite m_Background;
+    public Sprite[] m_Background;
     public Sprite[] m_BrokenSet;
     public Sprite[] m_LiquidSet;
     public Color[] m_HoverColor;
@@ -29,6 +29,7 @@ public class RoomConfig : ScriptableObject
     public float getHeight() { return m_CellH * m_Row;   }
     public int   getCellCount() { return (int)m_Column * (int)m_Row;  }
 
+    public Sprite getBackround() { return m_Background[Random.Range(0, m_Background.Length)]; }
     public Vector3 getPos(int x, int y)
     {
         Vector3 pos = Vector3.zero;

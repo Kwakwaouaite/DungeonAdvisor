@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameFlow : MonoBehaviour
 {
@@ -84,9 +85,11 @@ public class GameFlow : MonoBehaviour
 
         yield return waitMessage("You have \n\n"+ m_GameConfig.m_ConstructDuration + " seconds\n\n to prepare the room");
 
+
         m_Timer.SetTimer(m_GameConfig.m_ConstructDuration);
 
         yield return new WaitForSeconds(m_GameConfig.m_ConstructDuration);
+
 
         m_State = eSTATE.fsmWaveReady;
     }
@@ -99,6 +102,7 @@ public class GameFlow : MonoBehaviour
 
 
         yield return new WaitForSeconds(m_GameConfig.m_InterWaveDuration);
+
 
         m_State = eSTATE.fsmWaveReady;
     }
@@ -160,6 +164,8 @@ public class GameFlow : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         m_State = eSTATE.fsmExit;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator waitMessage(string text, float duration = 2.0f)
