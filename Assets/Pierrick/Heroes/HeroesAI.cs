@@ -5,6 +5,8 @@ using UnityEngine;
 public class HeroesAI : MonoBehaviour
 {
     [SerializeField] private SpeechBubble speechBubble;
+    [SerializeField] private static int waitingStep = 5;
+    [SerializeField] private static float waitingTimes = 1.0f;
 
     private bool m_ReachedExit;
     private List<Vector2Int> m_ItemVisited;
@@ -80,7 +82,13 @@ public class HeroesAI : MonoBehaviour
             m_ItemVisited.Add(m_CurrentPos);
             List<Pathfinding.ObjectPathData> nearObjects = room.GetAllPathesFrom(m_CurrentPos);
 
-            Pathfinding.ObjectPathData nextObj = ChooseNextObject(nearObjects);
+            Pathfinding.ObjectPathData nextObj = null;
+
+            int waitStep = 0;
+
+            while (wai)
+
+                nextObj = ChooseNextObject(nearObjects);
 
             if (nextObj != null)
             {
