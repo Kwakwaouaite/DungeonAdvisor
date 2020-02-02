@@ -5,8 +5,8 @@ using UnityEngine;
 public class HeroesAI : MonoBehaviour
 {
     [SerializeField] private SpeechBubble speechBubble;
-    [SerializeField] private static int waitingStep = 5;
-    [SerializeField] private static float waitingTimes = 1.0f;
+    [SerializeField] private int m_MaxWaitingStep = 5;
+    [SerializeField] private float m_MaxWaitingTimes = 1.0f;
     [SerializeField] Transform m_Root;
 
     private bool m_ReachedExit;
@@ -91,15 +91,26 @@ public class HeroesAI : MonoBehaviour
         while (!m_ReachedExit)
         {
             m_ItemVisited.Add(m_CurrentPos);
-            List<Pathfinding.ObjectPathData> nearObjects = room.GetAllPathesFrom(m_CurrentPos);
 
             Pathfinding.ObjectPathData nextObj = null;
 
-            int waitStep = 0;
+            int currentWaitStep = 0;
 
-            while (wai)
+           while (currentWaitStep < m_MaxWaitingStep && nextObj == null)
+            {
+                Debug.Log("Wait step: " + currentWaitStep);
+                nextObj = ChooseNextObject(room);
 
-                nextObj = ChooseNextObject(nearObjects);
+                if (nextObj == null)
+                {
+                    if (speechBubble)
+                    {
+                        StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Timer1 + currentWaitStep, m_MaxWaitingTimes / m_MaxWaitingStep));
+                    }
+                    yield return new WaitForSeconds(m_MaxWaitingTimes / m_MaxWaitingStep);
+                    currentWaitStep++;
+                }
+            }
 
             if (nextObj != null)
             {
@@ -162,8 +173,10 @@ public class HeroesAI : MonoBehaviour
         }
     }
 
-    private Pathfinding.ObjectPathData ChooseNextObject(List<Pathfinding.ObjectPathData> nearObjects)
+    private Pathfinding.ObjectPathData ChooseNextObject(UIGrid room)
     {
+        List<Pathfinding.ObjectPathData> nearObjects = room.GetAllPathesFrom(m_CurrentPos);
+
         Pathfinding.ObjectPathData nextObj = null;
 
         foreach (Pathfinding.ObjectPathData obj in nearObjects)
