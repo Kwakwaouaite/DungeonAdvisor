@@ -200,11 +200,7 @@ public class GameFlow : MonoBehaviour
         GameManager.m_GoldReward = 0;
         GameManager.m_Happiness = 0.0f;
 
-
-        WaveConfig wave = new WaveConfig();
-        wave.InitRandom();
-
-        m_Grid.LaunchExploreRoom(wave);
+        m_Grid.LaunchExploreRoom(m_Waves[m_WaveDone]);
 
         yield return null;
 
