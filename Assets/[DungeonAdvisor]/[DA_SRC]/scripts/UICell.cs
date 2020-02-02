@@ -12,6 +12,11 @@ public class UICell : MonoBehaviour
     int m_Damage = 0;
     public int m_Liquid = 0;
 
+    public Vector2 GetPosition()
+    {
+        return new Vector2(m_X, m_Y);
+    }
+
     public UIItem.eType GetEType()
     {
         if (m_Item != null)
@@ -30,6 +35,11 @@ public class UICell : MonoBehaviour
     public void SetDamage(int damage)
     {
         m_Damage = Mathf.Clamp(damage, 0, GetMaxDamage());
+    }
+
+    public void DoDamage(int damage = 1)
+    {
+        m_Damage = Mathf.Clamp(m_Damage + damage, 0, GetMaxDamage());
     }
 
     public int GetMaxDamage()

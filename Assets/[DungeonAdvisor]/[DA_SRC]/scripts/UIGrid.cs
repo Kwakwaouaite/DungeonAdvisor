@@ -176,6 +176,20 @@ public class UIGrid : MonoBehaviour
         return Pathfinding.FindAccessibleObjects(m_IAGrid, start);
     }
 
+    public void WalkerOn(Vector2Int tileWalked)
+    {
+        foreach (UICell cell in m_Cells)
+        {
+            if (cell.GetPosition() == tileWalked
+                && cell.GetEType() == UIItem.eType.None)
+            {
+                cell.DoDamage(1);
+                break;
+            }
+        }
+    }
+
+
     private void GenerateLogicGrid()
     {
         Cell[,] newGrid = new Cell[getColumn(), getRow()];

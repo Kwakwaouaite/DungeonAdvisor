@@ -30,6 +30,8 @@ public class HeroesAI : MonoBehaviour
                 gameObject.transform.position = room.transform.position + new Vector3(currentPosition.x * wRatio, currentPosition.y * hRatio);
                 yield return null;
             }
+
+            room.WalkerOn(path[i - 1]);
         }
     }
     
@@ -42,7 +44,6 @@ public class HeroesAI : MonoBehaviour
 
         while (!m_ReachedExit)
         {
-            Debug.Log("Let's a goo");
             m_ItemVisited.Add(currentPos);
             List<Pathfinding.ObjectPathData> nearObjects = room.GetAllPathesFrom(currentPos);
 
