@@ -16,7 +16,7 @@ public class WaveConfig
         for (int i=0; i < numberOfGoals; i++)
         {
             m_Goal[i] = (UIItem.eType) Random.Range(0, (int) UIItem.eType.Count);
-            if (m_Goal[i] == UIItem.eType.Door)
+            if (m_Goal[i] == UIItem.eType.Door || m_Goal[i] == UIItem.eType.Torch)
             {
                 m_Goal[i] = UIItem.eType.Chest;
             }

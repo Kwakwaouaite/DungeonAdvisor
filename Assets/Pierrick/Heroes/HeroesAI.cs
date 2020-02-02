@@ -187,6 +187,18 @@ public class HeroesAI : MonoBehaviour
                 else
                 {
                     yield return UseObject(room, m_CurrentPos);
+                    for (int i = 0; i < waveConfig.m_Goal.Length; i++)
+                    {
+                        if (nextObj.objectFound == waveConfig.m_Goal[i] && !waveConfig.m_GoalAccomplished[i])
+                        {
+                            waveConfig.m_GoalAccomplished[i] = true;
+                            break;
+                        }
+                    }
+                    /*
+                    foreach (UIItem.eType objective in waveConfig.m_Goal)
+                    {
+                    } */
                 }
             }
             else
@@ -203,6 +215,22 @@ public class HeroesAI : MonoBehaviour
         float happiness = GetPercentageHappiness();
         Debug.Log("Exited with happiness: " + happiness);
 
+        GameManager.m_Happiness = happiness;
+        GameManager.m_GoldReward = (int) (200 * happiness);
+
+        bool allObjectiveCompleted = true;
+        for (int i = 0; i < waveConfig.m_Goal.Length; i++)
+        {
+                if (waveConfig.m_Goal[i] != UIItem.eType.None && !waveConfig.m_GoalAccomplished[i])
+                {
+                    allObjectiveCompleted = false;
+                }
+        }
+
+        if (allObjectiveCompleted)
+        {
+            GameManager.m_GoldReward += waveConfig.m_Reward;
+        }
     }
 
     public IEnumerator ScaleUp()

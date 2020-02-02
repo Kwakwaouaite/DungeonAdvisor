@@ -31,6 +31,11 @@ public class ObjectiveUI : MonoBehaviour
                 {
                     textMesh.text += "\n- " + waveConfig.m_Goal[i].ToString().ToLower();
                 }
+
+                if (waveConfig.m_GoalAccomplished[i])
+                {
+                    textMesh.text += " (done)";
+                }
             }
 
             textMesh.text += "\nReward: " + waveConfig.m_Reward;
