@@ -197,6 +197,10 @@ public class GameFlow : MonoBehaviour
         m_BGMFightDestVol = 1.0f;
         m_BGMAmbientDestVol = 0.0f;
 
+        GameManager.m_GoldReward = 0;
+        GameManager.m_Happiness = 0.0f;
+
+
         WaveConfig wave = new WaveConfig();
         wave.InitRandom();
 
@@ -216,11 +220,19 @@ public class GameFlow : MonoBehaviour
 
         m_BGMFightDestVol = 0.0f;
         m_BGMAmbientDestVol = m_MessageVolume;
+
     }
 
     IEnumerator fsmWaveFinished(eSTATE state)
     {
-        yield return waitMessage("The wave "+ (m_WaveDone+1)+" have finished");
+        int percent = (int)Mathf.Clamp(Mathf.Ceil(GameManager.m_Happiness * 100),0,100);
+        yield return waitMessage("The wave "+ (m_WaveDone+1)+" have finished\n\n"
+            +"They are "+percent+" % happy \n\n" 
+            +"You win \n"+GameManager.m_GoldReward+"golds\n\n");
+
+        GameManager.AddGold(GameManager.m_GoldReward);
+        GameManager.m_GoldReward = 0;
+        GameManager.m_Happiness = 0.0f;
 
         m_State = eSTATE.fsmIsNextWave;
     }
