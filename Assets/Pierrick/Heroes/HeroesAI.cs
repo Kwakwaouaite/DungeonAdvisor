@@ -106,6 +106,10 @@ public class HeroesAI : MonoBehaviour
 
         m_CurrentPos = start;
 
+        float wRatio = room.getCellW();
+        float hRatio = room.getCellH();
+        gameObject.transform.position = room.transform.position + new Vector3(start.x * wRatio, start.y * hRatio);
+
         yield return ScaleUp();
 
         while (!m_ReachedExit)
