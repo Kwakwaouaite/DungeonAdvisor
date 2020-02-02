@@ -4,12 +4,13 @@ public class UIItem : MonoBehaviour
 {
     public enum eType
     {
-        None,
         Door,
         Chest,
         Enemy,
         Trap,
-        Torch
+        Torch,
+        Count,
+        None
     };
 
     [SerializeField] eType m_Type = eType.None;
