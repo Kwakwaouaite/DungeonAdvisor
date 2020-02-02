@@ -49,6 +49,7 @@ public class HeroesAI : MonoBehaviour
         {
             Vector2Int segment = path[i];
 
+            room.WalkerOn(path[i - 1]);
 
             Vector2 direction = path[i] - path[i - 1];
             Vector2 currentPosition = path[i - 1];
@@ -63,7 +64,6 @@ public class HeroesAI : MonoBehaviour
                 yield return null;
             }
 
-            room.WalkerOn(path[i - 1]);
             m_CurrentPos = path[i];
         }
     }
