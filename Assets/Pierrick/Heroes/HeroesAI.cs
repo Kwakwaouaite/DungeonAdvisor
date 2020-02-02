@@ -84,6 +84,8 @@ public class HeroesAI : MonoBehaviour
 
         m_CurrentPos = start;
 
+        StartCoroutine(ScaleUp());
+
         while (!m_ReachedExit)
         {
             m_ItemVisited.Add(m_CurrentPos);
@@ -108,6 +110,47 @@ public class HeroesAI : MonoBehaviour
             {
                 m_ReachedExit = true;
             }
+        }
+
+        yield return ScaleDown();
+
+    }
+
+    public IEnumerator ScaleUp()
+    {
+        float time = 0.0f;
+
+        while ( time < 1)
+        {
+            time += Time.deltaTime;
+            if (time > 1)
+            {
+                time = 1;
+            }
+
+            float scale = Tween.SineEaseIn(time, 0.0f, 1.0f, 1.0f);
+
+            m_Root.localScale = Vector3.one * scale;
+            yield return null;
+        }
+    }
+
+    public IEnumerator ScaleDown()
+    {
+        float time = 0.0f;
+
+        while (time < 1)
+        {
+            time += Time.deltaTime;
+            if (time > 1)
+            {
+                time = 1;
+            }
+
+            float scale = 1.0f - Tween.ExpoEaseOut(time, 0.0f, 1.0f, 1.0f);
+
+            m_Root.localScale = Vector3.one * scale;
+            yield return null;
         }
     }
 
