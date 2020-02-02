@@ -99,6 +99,8 @@ public class HeroesAI : MonoBehaviour
             yield break;
         }
 
+        Debug.Log("Door: " + waveConfig.m_Door.ToString());
+
         m_CurrentWaveConfig = waveConfig;
         Vector2Int start = Vector2Int.zero;
 

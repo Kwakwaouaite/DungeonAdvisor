@@ -22,6 +22,11 @@ public class GameFlow : MonoBehaviour
     [SerializeField] UITopMessage m_Message;
     [SerializeField] UIGrid m_Grid;
     [SerializeField] UITimer m_Timer;
+    [SerializeField] ObjectiveUI WaveUI1;
+    [SerializeField] ObjectiveUI WaveUI2;
+    [SerializeField] ObjectiveUI WaveUI3;
+
+    private WaveConfig[] m_Waves;
 
     public GameConfig m_GameConfig;
     public eSTATE m_State;
@@ -68,6 +73,18 @@ public class GameFlow : MonoBehaviour
     IEnumerator fsmStartPhase(eSTATE state)
     {
         m_WaveDone = 0;
+
+        m_Waves = new WaveConfig[3];
+
+        for (int i = 0; i < 3; i++)
+        {
+            m_Waves[i] = new WaveConfig();
+            m_Waves[i].InitRandom();
+        }
+
+        WaveUI1.waveConfig = m_Waves[0];
+        WaveUI2.waveConfig = m_Waves[1];
+        WaveUI3.waveConfig = m_Waves[2];
 
         yield return waitMessage("Schedule of the day\n\n"+m_GameConfig.m_WaveCount+"waves \n\nwill pass through the dungeon");
 
