@@ -5,6 +5,8 @@ public class HeroesConfig : ScriptableObject
 {
     public float speedCellPerSecond = 0.5f;
 
+    public float m_TimeWhenLost = 0.8f;
+
     public int m_MaxWaitingStep = 5;
     public float m_MaxWaitingTimes = 1.0f;
 

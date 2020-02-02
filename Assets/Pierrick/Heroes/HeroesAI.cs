@@ -118,21 +118,34 @@ public class HeroesAI : MonoBehaviour
 
             Pathfinding.ObjectPathData nextObj = null;
 
-            int currentWaitStep = 0;
+            //int currentWaitStep = 0;
 
-           while (currentWaitStep < m_HeroesConfig.m_MaxWaitingStep && nextObj == null)
+           //while (currentWaitStep < m_HeroesConfig.m_MaxWaitingStep && nextObj == null)
+           //while (nextObj == null)
             {
-                Debug.Log("Wait step: " + currentWaitStep);
                 nextObj = ChooseNextObject(room);
 
                 if (nextObj == null)
                 {
                     if (speechBubble)
                     {
+                        StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.NoWay, m_HeroesConfig.m_TimeWhenLost));
+                        yield return new WaitForSeconds(m_HeroesConfig.m_TimeWhenLost);
+                    }
+                    /*
+                    if (speechBubble)
+                    {
+                        if (currentWaitStep == 0)
+                        {
+                            StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.NoWay + currentWaitStep, m_HeroesConfig.m_MaxWaitingTimes / m_HeroesConfig.m_MaxWaitingStep));
+                            yield return new WaitForSeconds(0.4f);
+                        }
+
                         StartCoroutine(speechBubble.SaySomething(SpeechBubble.EReactionType.Timer1 + currentWaitStep, m_HeroesConfig.m_MaxWaitingTimes / m_HeroesConfig.m_MaxWaitingStep));
                     }
                     yield return new WaitForSeconds(m_HeroesConfig.m_MaxWaitingTimes / m_HeroesConfig.m_MaxWaitingStep);
                     currentWaitStep++;
+                    */
                 }
             }
 
