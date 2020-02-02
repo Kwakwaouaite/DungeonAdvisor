@@ -236,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Message: {fileID: 1360834895}
   m_Grid: {fileID: 2130726511}
+  m_Timer: {fileID: 2093907357}
   m_GameConfig: {fileID: 11400000, guid: bc675c2e17786437082055fd59e78c1f, type: 2}
   m_State: 0
   m_WaveDone: 0
@@ -2616,7 +2617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1052743282
 Transform:
   m_ObjectHideFlags: 0
@@ -6385,6 +6386,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Value: {fileID: 60630147}
+  m_HourglassAnim: {fileID: 25344448}
+  m_Off: {r: 0.6415094, g: 0.57498467, b: 0.39035243, a: 1}
+  m_Good: {r: 0.21462265, g: 0.5, b: 0.31280828, a: 1}
+  m_Stressed: {r: 0.6603774, g: 0.24840207, b: 0.19624422, a: 1}
 --- !u!1 &2103185647
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@ public class GameFlow : MonoBehaviour
     {
         m_WaveDone = 0;
 
-        yield return waitMessage("Get Ready for New Day");
+        yield return waitMessage("Schedule of the day\n\n"+m_GameConfig.m_WaveCount+"waves \n\nwill pass through the dungeon");
 
 
         m_State = eSTATE.fsmConstruct;
@@ -82,7 +82,7 @@ public class GameFlow : MonoBehaviour
     {
         m_WaveDone = 0;
 
-        yield return waitMessage("Construct Now");
+        yield return waitMessage("You have \n\n"+ m_GameConfig.m_ConstructDuration + " seconds\n\n to prepare the room");
 
         m_Timer.SetTimer(m_GameConfig.m_ConstructDuration);
 
@@ -93,7 +93,7 @@ public class GameFlow : MonoBehaviour
 
     IEnumerator fsmWaitNextWave(eSTATE state)
     {
-        yield return waitMessage("Repair Now");
+        yield return waitMessage("You have \n\n"+ m_GameConfig.m_InterWaveDuration + " seconds\n\n before the next wave\n\nRepair Now");
 
         m_Timer.SetTimer(m_GameConfig.m_InterWaveDuration);
 
@@ -156,7 +156,7 @@ public class GameFlow : MonoBehaviour
     IEnumerator fsmPhaseEnd(eSTATE state)
     {
 
-        yield return waitMessage("Day is Over");
+        yield return waitMessage("The day is Over");
         yield return new WaitForSeconds(1.0f);
 
         m_State = eSTATE.fsmExit;
