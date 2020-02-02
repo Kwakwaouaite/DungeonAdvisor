@@ -22,15 +22,31 @@ public class GameFlow : MonoBehaviour
     [SerializeField] UITopMessage m_Message;
     [SerializeField] UIGrid m_Grid;
     [SerializeField] UITimer m_Timer;
+    [SerializeField] AudioSource m_BGMFight;
+    [SerializeField] AudioSource m_BGMAmbient;
+
+    [SerializeField] float m_MessageVolume = 0.5f;
+
 
     public GameConfig m_GameConfig;
     public eSTATE m_State;
+
+    public float m_BGMFightVol = 0.0f;
+    public float m_BGMFightDestVol = 0.0f;
+
+
+    public float m_BGMAmbientVol = 0.0f;
+    public float m_BGMAmbientDestVol = 0.0f;
 
     public int m_WaveDone = 0;
 
     public void Start()
     {
         StartGameFlow();
+
+        StartCoroutine(playBGMFight());
+        StartCoroutine(playBGMAmbient());
+
     }
 
     public void StartGameFlow()
@@ -42,6 +58,35 @@ public class GameFlow : MonoBehaviour
     {
         return m_State == eSTATE.fsmExit;
     }
+
+    //************************************************
+    // 
+    //------------------------------------------------
+    //************************************************
+    IEnumerator playBGMFight()
+    {
+        m_BGMFightVol = 0.0f;
+        while (true)
+        {
+            m_BGMFightVol = Mathf.Lerp(m_BGMFightVol, m_BGMFightDestVol, 0.2f);
+            m_BGMFight.volume = m_BGMFightVol;
+            yield return null;
+        }
+    }
+
+    IEnumerator playBGMAmbient()
+    {
+        m_BGMAmbientVol = 0.0f;
+        while (true)
+        {
+            m_BGMAmbientVol = Mathf.Lerp(m_BGMAmbientVol, m_BGMAmbientDestVol, 0.2f);
+            m_BGMAmbient.volume = m_BGMAmbientVol;
+            yield return null;
+        }
+    }
+
+
+
 
     //************************************************
     // fsmWaiting
@@ -68,6 +113,8 @@ public class GameFlow : MonoBehaviour
     IEnumerator fsmStartPhase(eSTATE state)
     {
         m_WaveDone = 0;
+        m_BGMFightDestVol = 0f;
+        m_BGMAmbientDestVol = m_MessageVolume;
 
         yield return waitMessage("Schedule of the day\n\n"+m_GameConfig.m_WaveCount+"waves \n\nwill pass through the dungeon");
 
@@ -83,8 +130,12 @@ public class GameFlow : MonoBehaviour
     {
         m_WaveDone = 0;
 
+
+
         yield return waitMessage("You have \n\n"+ m_GameConfig.m_ConstructDuration + " seconds\n\n to prepare the room");
 
+        m_BGMFightDestVol = 0f;
+        m_BGMAmbientDestVol = 1.0f;
 
         m_Timer.SetTimer(m_GameConfig.m_ConstructDuration);
 
@@ -96,9 +147,14 @@ public class GameFlow : MonoBehaviour
 
     IEnumerator fsmWaitNextWave(eSTATE state)
     {
+
+
         yield return waitMessage("You have \n\n"+ m_GameConfig.m_InterWaveDuration + " seconds\n\n before the next wave\n\nRepair Now");
 
         m_Timer.SetTimer(m_GameConfig.m_InterWaveDuration);
+
+        m_BGMFightDestVol = 0f;
+        m_BGMAmbientDestVol = 1.0f;
 
 
         yield return new WaitForSeconds(m_GameConfig.m_InterWaveDuration);
@@ -110,6 +166,10 @@ public class GameFlow : MonoBehaviour
 
     IEnumerator fsmWaveReady(eSTATE state)
     {
+
+        m_BGMFightDestVol = 0f;
+        m_BGMAmbientDestVol = m_MessageVolume;
+
         yield return waitMessage("The wave " + (m_WaveDone + 1) + " is ready");
 
         m_State = eSTATE.fsmWaveRun;
@@ -118,6 +178,9 @@ public class GameFlow : MonoBehaviour
 
     IEnumerator fsmWaveRun(eSTATE state)
     {
+        m_BGMFightDestVol = 1.0f;
+        m_BGMAmbientDestVol = 0.0f;
+
         WaveConfig wave = new WaveConfig();
         wave.InitRandom();
 
@@ -134,11 +197,13 @@ public class GameFlow : MonoBehaviour
 
             yield return null;
         }
+
+        m_BGMFightDestVol = 0.0f;
+        m_BGMAmbientDestVol = m_MessageVolume;
     }
 
     IEnumerator fsmWaveFinished(eSTATE state)
     {
-
         yield return waitMessage("The wave "+ (m_WaveDone+1)+" have finished");
 
         m_State = eSTATE.fsmIsNextWave;

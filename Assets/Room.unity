@@ -237,8 +237,15 @@ MonoBehaviour:
   m_Message: {fileID: 1360834895}
   m_Grid: {fileID: 2130726511}
   m_Timer: {fileID: 2093907357}
+  m_BGMFight: {fileID: 1783804934}
+  m_BGMAmbient: {fileID: 1978953984}
+  m_MessageVolume: 0.5
   m_GameConfig: {fileID: 11400000, guid: bc675c2e17786437082055fd59e78c1f, type: 2}
   m_State: 0
+  m_BGMFightVol: 0
+  m_BGMFightDestVol: 0
+  m_BGMAmbientVol: 0
+  m_BGMAmbientDestVol: 0
   m_WaveDone: 0
 --- !u!4 &32066727
 Transform:
@@ -5592,6 +5599,12 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!82 &1783804934 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6840790668737336104, guid: f3b2c805b8d17d14a8eded8b80009352,
+    type: 3}
+  m_PrefabInstance: {fileID: 1037098891}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1805615168
 GameObject:
   m_ObjectHideFlags: 0
@@ -6037,6 +6050,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Item: {fileID: 2920190789235246604, guid: 2e529833b626443ecacb4b2da7c7ef86, type: 3}
   m_Root: {fileID: 1272566625}
+--- !u!82 &1978953984 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 225748626535740806, guid: 57e6ca1776fa6a44284ba4f888a90ef6,
+    type: 3}
+  m_PrefabInstance: {fileID: 429481313}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2020195047
 GameObject:
   m_ObjectHideFlags: 0
