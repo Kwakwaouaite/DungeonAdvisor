@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 8ba2a1fa0742711449d237b0349fb279
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+<<<<<<< HEAD:Assets/Audio/battle_music.wav.meta
+    loadType: 1
+=======
+    loadType: 0
+>>>>>>> c68f16d512dc17b78e646ad3832eeae47ddd6d93:Assets/Audio/construct_music.mp3.meta
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
