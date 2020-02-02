@@ -50,6 +50,19 @@ public class UIGrid : MonoBehaviour
     List<UICell> m_Cells;
     int m_CellCount;
 
+    public UIItem GetItem(Vector2Int position)
+    {
+        foreach (UICell cell in m_Cells)
+        {
+            if (cell.GetPosition() == position)
+            {
+                return cell.GetUIItem();
+            }
+        }
+
+        return null;
+    }
+
     private void Awake()
     {
         Debug.Log("awake");

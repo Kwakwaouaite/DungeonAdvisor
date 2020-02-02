@@ -23,6 +23,11 @@ public class UIItem : MonoBehaviour
         RefreshState();
     }
 
+    public bool Available()
+    {
+        return !m_Broken;
+    }
+
     public void Use()
     {
         m_Broken = true;

@@ -27,6 +27,11 @@ public class UICell : MonoBehaviour
         return UIItem.eType.None;
     }
 
+    public UIItem GetUIItem()
+    {
+        return m_Item;
+    }
+
     public bool GetWalkable()
     {
         return m_Damage < GetMaxDamage();
