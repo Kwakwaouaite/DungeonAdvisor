@@ -12,7 +12,7 @@ public class UITopMessage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Text.SetText("");
+        GameManager.PopupMessageClosed();
     }
 
     public bool IsOpen()
@@ -22,6 +22,7 @@ public class UITopMessage : MonoBehaviour
 
     public void ShowMessage(string text, float duration = 2f)
     {
+        GameManager.PopupMessageOpen();
         m_Open = true;  
         m_Text.SetText(text);
 
@@ -43,6 +44,9 @@ public class UITopMessage : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         m_Open = false;
+
+        GameManager.PopupMessageClosed();
+
     }
-   
+
 }
