@@ -8,7 +8,8 @@ public class UIItem : MonoBehaviour
         Door,
         Chest,
         Enemy,
-        Trap
+        Trap,
+        Torch
     };
 
     [SerializeField] eType m_Type = eType.None;
