@@ -50,6 +50,19 @@ public class UIGrid : MonoBehaviour
     List<UICell> m_Cells;
     int m_CellCount;
 
+    public UIItem GetItem(Vector2Int position)
+    {
+        foreach (UICell cell in m_Cells)
+        {
+            if (cell.GetPosition() == position)
+            {
+                return cell.GetUIItem();
+            }
+        }
+
+        return null;
+    }
+
     private void Awake()
     {
         Debug.Log("awake");
@@ -175,6 +188,20 @@ public class UIGrid : MonoBehaviour
         GenerateLogicGrid();
         return Pathfinding.FindAccessibleObjects(m_IAGrid, start);
     }
+
+    public void WalkerOn(Vector2Int tileWalked)
+    {
+        foreach (UICell cell in m_Cells)
+        {
+            if (cell.GetPosition() == tileWalked
+                && cell.GetEType() == UIItem.eType.None)
+            {
+                cell.DoDamage(1);
+                break;
+            }
+        }
+    }
+
 
     private void GenerateLogicGrid()
     {
