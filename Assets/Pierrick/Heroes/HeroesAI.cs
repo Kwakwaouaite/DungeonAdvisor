@@ -5,11 +5,20 @@ using UnityEngine;
 public class HeroesAI : MonoBehaviour
 {
     [SerializeField] private SpeechBubble speechBubble;
+    [SerializeField] Transform m_Root;
 
     private bool m_ReachedExit;
     private List<Vector2Int> m_ItemVisited;
 
+
     public Vector2Int m_CurrentPos;
+
+    public void SetOffset(float x, float  y)
+    {
+        Vector3 localPos = new Vector3(x, y, m_Root.localPosition.z);
+
+        m_Root.localPosition = localPos;
+    }
 
     public IEnumerator UseObject(UIGrid room, Vector2Int objectPos)
     {
