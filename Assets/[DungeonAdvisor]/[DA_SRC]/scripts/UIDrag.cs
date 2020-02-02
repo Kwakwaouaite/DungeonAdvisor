@@ -47,7 +47,10 @@ public class UIDrag : MonoBehaviour
 
     private void OnMouseOver()
     {
-        m_Root.localScale = 1.5f * Vector3.one;
+        if (GameManager.CanAddItems())
+        {
+            m_Root.localScale = 1.5f * Vector3.one;
+        }
     }
 
     private void OnMouseExit()
@@ -57,7 +60,9 @@ public class UIDrag : MonoBehaviour
 
     bool isCellValid(UICell cell)
     {
-        return (cell &&
+        return (
+            GameManager.CanAddItems() &&
+            cell &&
             cell.canHover() &&
             cell.GetEType() == UIItem.eType.None &&
             (!cell.isDamaged())
@@ -65,6 +70,10 @@ public class UIDrag : MonoBehaviour
     }
     private void OnMouseDrag()
     {
+        if (!GameManager.CanAddItems())
+        {
+            return;
+        }
         m_Dragging = true;
 
         m_DragOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - m_InitDrag;
@@ -87,13 +96,17 @@ public class UIDrag : MonoBehaviour
     private void OnMouseUp()
     {
         m_Dragging = false;
-        UICell activeCell = GameManager.GetActiveCell();
 
-        if (activeCell && isCellValid(activeCell))
+        if (GameManager.CanAddItems())
         {
-            UIItem item = Instantiate<UIItem>(m_Item, activeCell.transform);
-            activeCell.AddItem(item);
-            m_DragOffset = Vector3.zero;
+            UICell activeCell = GameManager.GetActiveCell();
+
+            if (activeCell && isCellValid(activeCell))
+            {
+                UIItem item = Instantiate<UIItem>(m_Item, activeCell.transform);
+                activeCell.AddItem(item);
+                m_DragOffset = Vector3.zero;
+            }
         }
         m_SnapToPos = false;
 

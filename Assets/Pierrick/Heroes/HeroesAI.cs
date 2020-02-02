@@ -79,6 +79,13 @@ public class HeroesAI : MonoBehaviour
     
     public IEnumerator ExploreRoom(UIGrid room, Vector2Int start)
     {
+        if (GameManager.IsGroupExploring())
+        {
+            yield break;
+        }
+
+        GameManager.StartGroupExploring();
+
         m_ReachedExit = false;
         m_ItemVisited = new List<Vector2Int>();
 
@@ -114,6 +121,7 @@ public class HeroesAI : MonoBehaviour
 
         yield return ScaleDown();
 
+        GameManager.StopGroupExploring();
     }
 
     public IEnumerator ScaleUp()

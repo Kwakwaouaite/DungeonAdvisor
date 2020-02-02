@@ -34,7 +34,7 @@ public class UICell : MonoBehaviour
 
     public bool GetWalkable()
     {
-        return m_Damage < GetMaxDamage();
+        return (!isLiquid()) && m_Damage < GetMaxDamage();
     }
 
     public void SetDamage(int damage)
