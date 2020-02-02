@@ -6,6 +6,8 @@ public class UITimer : MonoBehaviour
     [SerializeField] Animator m_HourglassAnim;
     [SerializeField] UIVignette m_Vignette;
     [SerializeField] float m_StressedValue = 2.0f;
+    [SerializeField] AudioSource slowSfx;
+    [SerializeField] AudioSource stressedSfx;
 
 
     public Color m_Off;
@@ -30,6 +32,9 @@ public class UITimer : MonoBehaviour
     {
         if (m_Time <= 0)
         {
+            slowSfx.enabled = false;
+            stressedSfx.enabled = false;
+
             m_Time = 0;
             m_Value.SetText("0.0");
 
@@ -46,12 +51,20 @@ public class UITimer : MonoBehaviour
 
             if (m_Time > m_StressedValue)
             {
+
+                slowSfx.enabled = true;
+                stressedSfx.enabled = false;
+
+
                 m_Vignette.SetColor(UIVignette.eColor.TimerOn);
 
                 m_Value.color = m_Good;
             }
             else
             {
+                slowSfx.enabled = false;
+                stressedSfx.enabled = true;
+
                 m_Vignette.SetColor(UIVignette.eColor.TimerStress);
 
                 m_Value.color = m_Stressed;

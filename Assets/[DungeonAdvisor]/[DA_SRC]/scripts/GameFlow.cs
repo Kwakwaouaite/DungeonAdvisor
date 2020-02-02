@@ -68,7 +68,7 @@ public class GameFlow : MonoBehaviour
         m_BGMFightVol = 0.0f;
         while (true)
         {
-            m_BGMFightVol = Mathf.Lerp(m_BGMFightVol, m_BGMFightDestVol, 0.2f);
+            m_BGMFightVol = Mathf.Lerp(m_BGMFightVol, m_BGMFightDestVol, 0.1f);
             m_BGMFight.volume = m_BGMFightVol;
             yield return null;
         }
@@ -79,7 +79,7 @@ public class GameFlow : MonoBehaviour
         m_BGMAmbientVol = 0.0f;
         while (true)
         {
-            m_BGMAmbientVol = Mathf.Lerp(m_BGMAmbientVol, m_BGMAmbientDestVol, 0.2f);
+            m_BGMAmbientVol = Mathf.Lerp(m_BGMAmbientVol, m_BGMAmbientDestVol, 0.1f);
             m_BGMAmbient.volume = m_BGMAmbientVol;
             yield return null;
         }
