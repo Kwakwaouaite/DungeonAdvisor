@@ -94,6 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b53bac8a055246ab85b4a4f1850a8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AlphaMin: 0.2
+  m_AlphaMax: 0.5
+  m_Lerp: 0.1
 --- !u!1 &7249907317228283686
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +147,8 @@ MonoBehaviour:
   m_Visual: {fileID: 7249907317647978763}
   m_VisualBroken: {fileID: 7249907318176412636}
   m_Broken: 0
-  m_Cost: 0
+  m_BuyCost: 0
+  m_RepairCost: 0
 --- !u!1 &7249907317647978763
 GameObject:
   m_ObjectHideFlags: 0

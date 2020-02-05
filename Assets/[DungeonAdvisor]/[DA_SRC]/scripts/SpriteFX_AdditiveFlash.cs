@@ -4,6 +4,7 @@ public class SpriteFX_AdditiveFlash : MonoBehaviour
 {
     [SerializeField] float m_AlphaMin = 0.2f;
     [SerializeField] float m_AlphaMax = 0.5f;
+    [SerializeField] float m_Lerp= 0.5f;
 
     SpriteRenderer m_Sprite;
     float          m_Alpha;
@@ -23,7 +24,7 @@ public class SpriteFX_AdditiveFlash : MonoBehaviour
         }
 
         Color color = m_Sprite.color;
-        color.a = Mathf.Lerp(color.a, m_Alpha, 0.1f);
+        color.a = Mathf.Lerp(color.a, m_Alpha, m_Lerp);
 
         m_Sprite.color = color;
         

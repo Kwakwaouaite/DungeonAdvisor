@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df0d8c05fe444d21b10a818cd382c64, type: 3}
   m_Name: ItemConfig
   m_EditorClassIdentifier: 
-  m_Chests:
-  - {fileID: 7614246945853015143, guid: 566ed552aa0324d5bbd5d672957a510f, type: 3}
-  - {fileID: 7342991850736481719, guid: 24a64e1128a0f498b9868a1ca293a416, type: 3}
-  - {fileID: 5701817688777598369, guid: ecd2bedfc18be40c7940965d5569dbb2, type: 3}
-  - {fileID: 511902432511117908, guid: 67c272d02012d4145b64cb054c370aa6, type: 3}
-  m_Enemies:
-  - {fileID: 3517655181592260874, guid: 6c4a198c5cd59446b85093f4a89371f2, type: 3}
-  m_Traps: []
+  m_Chest: {fileID: 21300000, guid: 776d8405527554f2c9e3d0bdea50c48c, type: 3}
+  m_Scorpion: {fileID: 21300000, guid: 87bdbf8c647124ee89f6fe5c86d13b00, type: 3}
+  m_Trap: {fileID: 21300000, guid: 4f9da01c16d1e481db333c1ae2ac4114, type: 3}
+  m_Princess: {fileID: 21300000, guid: 64f740fcc0cd34b8fbb95861ac73bed5, type: 3}
+  m_Potion: {fileID: 21300000, guid: 9c6f787588509469d874d1cef459685e, type: 3}
+  m_Helmet: {fileID: 21300000, guid: 6754bd06f4d3c4ecea57fd9fc9f9181f, type: 3}
+  m_Jar: {fileID: 21300000, guid: 1496bc2eb8cc242548543cd8ed98b9a9, type: 3}
+  m_Gold: {fileID: 21300000, guid: e8ec6007a651a42c09e711905e9b3f54, type: 3}

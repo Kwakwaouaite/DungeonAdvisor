@@ -125,14 +125,14 @@ public class GameFlow : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             m_Waves[i] = new WaveConfig();
-            m_Waves[i].InitRandom();
+            m_Waves[i].InitRandom(i+1);
         }
 
         WaveUI1.waveConfig = m_Waves[0];
         WaveUI2.waveConfig = m_Waves[1];
         WaveUI3.waveConfig = m_Waves[2];
 
-        yield return waitMessage("Schedule of the day\n\n"+m_GameConfig.m_WaveCount+"waves \n\nwill pass through the dungeon");
+        yield return waitMessage("Schedule of the day\n\n"+m_GameConfig.m_WaveCount+" waves \n\nwill pass through the dungeon");
 
 
         m_State = eSTATE.fsmConstruct;
@@ -145,10 +145,12 @@ public class GameFlow : MonoBehaviour
     IEnumerator fsmConstruct(eSTATE state)
     {
         m_WaveDone = 0;
+        string msg = "Prepare the room\n" +
+                    "to content all the waves.\n\n" +
+                    "Watch out, you can only put objects on perfect ground\n\n" +
+                    "You have "+ m_GameConfig.m_ConstructDuration + " seconds";
 
-
-
-        yield return waitMessage("You have \n\n"+ m_GameConfig.m_ConstructDuration + " seconds\n\n to prepare the room");
+        yield return waitMessage(msg);
 
         m_BGMFightDestVol = 0f;
         m_BGMAmbientDestVol = 1.0f;
@@ -257,12 +259,12 @@ public class GameFlow : MonoBehaviour
 
         m_State = eSTATE.fsmExit;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator waitMessage(string text, float duration = 2.0f)
     {
-        m_Message.ShowMessage(text,duration);
+        m_Message.ShowMessage(text,-1f);
 
         while (m_Message.IsOpen())
         {

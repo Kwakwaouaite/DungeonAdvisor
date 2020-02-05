@@ -150,9 +150,34 @@ public class UIGrid : MonoBehaviour
 
     private void ApplyRandomDamageToAllCell()
     {
+        List<UICell> liqCell = new List<UICell>();
         foreach (UICell uICell in m_Cells)
         {
             uICell.SetDamage(Random.Range(0, uICell.GetMaxDamage() + 1));
+            liqCell.Add(uICell);
+        }
+
+        int liquidCount = Random.Range(5, 7);
+        int liquidType = Random.Range(1, 3);
+        for (int i=0;i<liquidCount;i++)
+        {
+            while(true)
+            {
+                int idx = Random.Range(0, liqCell.Count);
+                UICell cell = liqCell[idx];
+                liqCell.Remove(cell);
+                if ((cell.m_X>1)
+                    &&(cell.m_Y>1)
+                    &&(cell.m_X< getColumn() - 2)
+                    &&(cell.m_Y< getRow() - 2)
+                    )
+                {
+                    cell.SetLiquid(liquidType);
+                    break;
+                }
+
+
+            }
         }
     }
 
@@ -229,7 +254,7 @@ public class UIGrid : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             WaveConfig wave = new WaveConfig();
-            wave.InitRandom();
+            wave.InitRandom(1);
             LaunchExploreRoom(wave);
             
             //d_HeroesAI

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6a35797576741c7ac4966d88389f3c, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  m_ConstructDuration: 20
+  m_ConstructDuration: 30
   m_InterWaveDuration: 10
   m_WaveSpeed: 1
   m_WaveCount: 3

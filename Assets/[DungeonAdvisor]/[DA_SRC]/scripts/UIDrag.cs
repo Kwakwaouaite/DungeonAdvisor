@@ -66,7 +66,8 @@ public class UIDrag : MonoBehaviour
             cell &&
             cell.canHover() &&
             cell.GetEType() == UIItem.eType.None &&
-            (!cell.isDamaged())
+            (!cell.isDamaged()) &&
+            (!cell.isLiquid())
             );
     }
     private void OnMouseDrag()

@@ -68,6 +68,11 @@ public class UICell : MonoBehaviour
         return m_Damage != 0;
     }
 
+    public void SetLiquid(int liquidType)
+    {
+        m_Liquid = liquidType;
+    }
+
     public bool isLiquid()
     {
         return m_Liquid != 0;
@@ -134,6 +139,7 @@ public class UICell : MonoBehaviour
     {
         return
             ( GameManager.canRepair() || GameManager.CanAddItems())
+            &&(!isLiquid())
             &&((!m_Item)
             || m_Item.getItemType() != UIItem.eType.Door);
     }
@@ -182,7 +188,7 @@ public class UICell : MonoBehaviour
     }
 
     int getDamage() { return m_Damage; }
-    public bool canRepair() { return m_Item == null;  }
+    public bool canRepair() { return m_Item == null && !(isLiquid());  }
 
 
     public void AddItem(UIItem item) { m_Item = item;  }

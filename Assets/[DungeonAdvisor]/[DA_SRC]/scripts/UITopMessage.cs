@@ -36,11 +36,21 @@ public class UITopMessage : MonoBehaviour
 
         m_Anim.SetTrigger("Show");
 
-        yield return new WaitForSeconds(duration + 1.0f);
+        if (duration < 0)
+        {
+            while( !Input.anyKeyDown)
+            {
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(duration + 1.0f);
+        }
 
         m_Anim.SetTrigger("Hide");
 
-
+        
         yield return new WaitForSeconds(1.0f);
 
         m_Open = false;
