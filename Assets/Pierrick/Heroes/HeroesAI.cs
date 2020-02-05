@@ -218,7 +218,7 @@ public class HeroesAI : MonoBehaviour
         Debug.Log("Exited with happiness: " + happiness);
 
         GameManager.m_Happiness = happiness;
-        GameManager.m_GoldReward = (int) (200 * happiness);
+        GameManager.m_GoldReward = 60 + (int) (100 * happiness);
 
         bool allObjectiveCompleted = true;
         for (int i = 0; i < waveConfig.m_Goal.Length; i++)
